@@ -221,7 +221,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0005493164, y: -131.5}
+  m_AnchoredPosition: {x: 0.00061035156, y: -131.5}
   m_SizeDelta: {x: -0.35620117, y: 263.75842}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &255380168
@@ -352,6 +352,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 294973363}
+  - component: {fileID: 294973364}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -373,6 +374,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &294973364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294973362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07ef17e97d34d2a42b63d2269fa186c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  content: {fileID: 1026338863172096370}
+  playerCard: {fileID: 5786993297098800985, guid: 104c0d1f60fa53a4b8407eea7435c78c,
+    type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,8 +398,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 519420032}
-  - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420031}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -585,7 +601,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.091539, y: -139}
-  m_SizeDelta: {x: 1357.4619, y: 100}
+  m_SizeDelta: {x: 1357.4619, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1026338862764930871
 MonoBehaviour:
@@ -600,12 +616,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 1026338863172096371}
-  m_Horizontal: 0
-  m_Vertical: 1
+  m_Horizontal: 1
+  m_Vertical: 0
   m_MovementType: 1
-  m_Elasticity: 0.1
+  m_Elasticity: 0.05
   m_Inertia: 1
-  m_DecelerationRate: 0.135
+  m_DecelerationRate: 0.0001
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 0}
   m_HorizontalScrollbar: {fileID: 0}
@@ -651,7 +667,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -32.829536}
+  m_SizeDelta: {x: -1355.2444, y: -32.82953}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1026338863172096372
 MonoBehaviour:
@@ -674,8 +690,8 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 300, y: 100}
-  m_Spacing: {x: 0, y: 15}
-  m_Constraint: 1
+  m_Spacing: {x: 60, y: 0}
+  m_Constraint: 2
   m_ConstraintCount: 1
 --- !u!1001 &2699157461035188754
 PrefabInstance:

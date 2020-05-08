@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class PlayerManager : MonoBehaviour
@@ -9,6 +10,8 @@ public class PlayerManager : MonoBehaviour
     public int playerId;
     public string playerName;
     public int playerPoints = 0;
+    public bool status;
+
 
     public void RemovePlayer()
     {
@@ -39,16 +42,36 @@ public class PlayerManager : MonoBehaviour
 
     public void AddPlayerToList(GameObject card)
     {
-        //create player object and make global variables changes
+        //apply data to created player card
         this.playerId = GameSettings.lastPlayerId + 1;
         this.playerName = card.GetComponentInChildren<TMP_InputField>().text;
 
         Player newPlayer = new Player(this.playerId, this.playerName);
         
+        //change global variables
         GameSettings.lastPlayerId = this.playerId;
         GameSettings.playerNumber++;        
         GameSettings.playerList.Add(newPlayer);
+    }
 
-        Debug.Log("Global Settings: LastId: " + GameSettings.lastPlayerId + " PlayerNumber: "+GameSettings.playerNumber);
+    public void OnToggleValueChanged()
+    {
+        Toggle toggle = GetComponent<Toggle>();
+        Image toggleImg = GetComponent<Image>();
+
+        Color32 noColor = new Color32(231, 47, 73, 250);
+        Color32 yesColor = new Color32(104, 213, 81, 250);
+
+        if(toggle.isOn)
+        {
+            status = true;
+            toggleImg.color = yesColor;
+        }
+        else
+        {
+            status = false;
+            toggleImg.color = noColor;
+
+        }
     }
 }

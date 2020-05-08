@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject content;
     public GameObject playerCard;
-    public List<Player> playerList;
+    private List<Player> playerList;
+    
     void Start()
     {
         playerList = GameSettings.playerList;
@@ -15,7 +18,11 @@ public class GameManager : MonoBehaviour
         foreach(Player player in playerList)
         {
             GameObject card = Instantiate(playerCard) as GameObject;
-            card.GetComponentInChildren<Text>().text = player.getPlayerName();
+            card.GetComponent<PlayerManager>().playerName = player.getPlayerName();
+            card.GetComponentInChildren<TMP_Text>().text = player.getPlayerName();
+            content.GetComponent<RectTransform>().offsetMax += new Vector2(card.GetComponent<RectTransform>().rect.width + 60, 0);
+            card.transform.SetParent(content.transform, false);
+
         }
     }
 }

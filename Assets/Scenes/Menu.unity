@@ -1417,6 +1417,16 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8451875919317165287, guid: 9f8e3ef53d48a33448c8d96e2859f966,
+        type: 3}
+      propertyPath: m_DecelerationRate
+      value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 8451875919317165287, guid: 9f8e3ef53d48a33448c8d96e2859f966,
+        type: 3}
+      propertyPath: m_Elasticity
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 8451875919715812004, guid: 9f8e3ef53d48a33448c8d96e2859f966,
         type: 3}
       propertyPath: m_Spacing.y
