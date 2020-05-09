@@ -9,25 +9,34 @@ using TMPro;
 public class MenuManager : MonoBehaviour
 {
     public GameObject content;
-    public List<Player> playerList;
     public GameObject playerCard;
+    public GameObject panelRules;
 
+    public List<Player> playerList;
     public string tempString;
+    public bool rulesToggled;
+
     TouchScreenKeyboard keyboard;
+
     
-    public void OnPlay()
+    void Start()
     {
-        SceneManager.LoadScene("Game");
+        rulesToggled = false;
+        ToggleRules();
     }
 
-    
+    public void OnPlay()
+    {
+        GameSettings.LoadQuestions();
+        SceneManager.LoadScene("Game");
+    }
     
     public void AddPlayer()
     {
         //add card to scene and add 130 to bottom to make scrolling work correctly
-        content.GetComponent<RectTransform>().offsetMin -= new Vector2(0, 120);
         GameObject card = Instantiate(playerCard) as GameObject; 
-        
+        content.GetComponent<RectTransform>().offsetMax += new Vector2(card.GetComponent<RectTransform>().rect.width + 60, 0);
+
         card.transform.SetParent(content.transform, false);
 
         //open keyboard and type name
@@ -36,7 +45,16 @@ public class MenuManager : MonoBehaviour
         
     }
 
+    public void setListQuestionTest()
+    {
+        GameSettings.setList();
+        SaveData.SaveQuestions(GameSettings.questionList);
+    }
 
-
-
+    public void ToggleRules()
+    {
+        if(rulesToggled == true) panelRules.SetActive(true);
+        else panelRules.SetActive(false);
+        rulesToggled = !rulesToggled;
+    }
 }
