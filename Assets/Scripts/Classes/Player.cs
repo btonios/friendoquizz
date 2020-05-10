@@ -6,13 +6,25 @@ public class Player : Object
 {
     public int playerId;
     public string playerName;
+    public bool playerAnswer;
     public int playerPoints;
 
-    public Player(int pId, string pName = "Player", int pPoints = 0)
+    public Player(int pId, string pName = "Player", bool playerAnswer = false, int pPoints = 0)
     {
         this.playerId = pId;
         this.playerName = pName;
+        this.playerAnswer = playerAnswer;
         this.playerPoints = pPoints;
+    }
+
+    public int getPlayerId()
+    {
+        return this.playerId;
+    }
+
+    public void setPlayerId(int playerId)
+    {
+        this.playerId = playerId;
     }
 
     public int getPlayerPoints()
@@ -33,6 +45,16 @@ public class Player : Object
     public void setPlayerName(string playerName)
     {
         this.playerName = playerName;
+    }
+
+     public bool getPlayerAnswer()
+    {
+        return this.playerAnswer;
+    }
+
+    public void setPlayerAnswer(bool playerAnswer)
+    {
+        this.playerAnswer = playerAnswer;
     }
 
 

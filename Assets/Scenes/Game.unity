@@ -211,6 +211,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ef17e97d34d2a42b63d2269fa186c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &487240349 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 487240349, guid: 5aaeb29dcf4c96346b6e1caf55f7f1d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 8372172553502886312}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,6 +481,42 @@ PrefabInstance:
       propertyPath: panelRules
       value: 
       objectReference: {fileID: 1840454762}
+    - target: {fileID: 620236811865215165, guid: 68f50275a006f9343ad2b643691bd11b,
+        type: 3}
+      propertyPath: answer
+      value: 
+      objectReference: {fileID: 487240349}
+    - target: {fileID: 620236811865215165, guid: 68f50275a006f9343ad2b643691bd11b,
+        type: 3}
+      propertyPath: panelGame
+      value: 
+      objectReference: {fileID: 8372172553502886314}
+    - target: {fileID: 620236811865215165, guid: 68f50275a006f9343ad2b643691bd11b,
+        type: 3}
+      propertyPath: panelResults
+      value: 
+      objectReference: {fileID: 8372172553502886313}
+    - target: {fileID: 620236811865215165, guid: 68f50275a006f9343ad2b643691bd11b,
+        type: 3}
+      propertyPath: resultsContent
+      value: 
+      objectReference: {fileID: 8372172553502886315}
+    - target: {fileID: 620236811865215165, guid: 68f50275a006f9343ad2b643691bd11b,
+        type: 3}
+      propertyPath: playerCardResults
+      value: 
+      objectReference: {fileID: 5786993297098800985, guid: 23e6432ef93d36940af1e4b5799b06f1,
+        type: 3}
+    - target: {fileID: 620236811865215165, guid: 68f50275a006f9343ad2b643691bd11b,
+        type: 3}
+      propertyPath: buttonNext
+      value: 
+      objectReference: {fileID: 8372172553502886316}
+    - target: {fileID: 620236811865215165, guid: 68f50275a006f9343ad2b643691bd11b,
+        type: 3}
+      propertyPath: textButtonNext
+      value: 
+      objectReference: {fileID: 8372172553502886317}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68f50275a006f9343ad2b643691bd11b, type: 3}
 --- !u!1001 &8372172553502886312
@@ -608,3 +656,45 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5aaeb29dcf4c96346b6e1caf55f7f1d3, type: 3}
+--- !u!1 &8372172553502886313 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8437355110985583735, guid: 5aaeb29dcf4c96346b6e1caf55f7f1d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 8372172553502886312}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8372172553502886314 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 902123407556937691, guid: 5aaeb29dcf4c96346b6e1caf55f7f1d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 8372172553502886312}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8372172553502886315 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6785147209437817610, guid: 5aaeb29dcf4c96346b6e1caf55f7f1d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 8372172553502886312}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8372172553502886316 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1416443169397941860, guid: 5aaeb29dcf4c96346b6e1caf55f7f1d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 8372172553502886312}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8372172553502886317 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1416443169315607087, guid: 5aaeb29dcf4c96346b6e1caf55f7f1d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 8372172553502886312}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -4,13 +4,21 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
     public TMP_Text question;
+    public TMP_Text answer;
+    public TMP_Text textButtonNext;
     public GameObject content;
+    public GameObject resultsContent;
     public GameObject playerCard;
+    public GameObject playerCardResults;
     public GameObject panelRules;
+    public GameObject panelResults;
+    public GameObject panelGame;
     
     private List<Player> playerList;
     public bool rulesToggled;
@@ -18,48 +26,186 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
+        GameSettings.gameStatus = "question";
         playerList = GameSettings.playerList;
         rulesToggled = false;
-        ToggleHelp();
 
+        //instantiate each car based on player list from game settings
         foreach(Player player in playerList)
         {
             GameObject card = Instantiate(playerCard) as GameObject;
+            card.GetComponent<PlayerManager>().playerId = player.getPlayerId();
             card.GetComponent<PlayerManager>().playerName = player.getPlayerName();
             card.GetComponentInChildren<TMP_Text>().text = player.getPlayerName();
             content.GetComponent<RectTransform>().offsetMax += new Vector2(card.GetComponent<RectTransform>().rect.width + 60, 0);
             card.transform.SetParent(content.transform, false);
-
         }
+
+        Next();
     }
 
+    //when button Next clicked, decides what to do based on game status
     public void Next()
     {
-        foreach(Transform card in content.transform)
+        switch (GameSettings.gameStatus)
         {
-            card.GetComponent<Toggle>().isOn = false;
-            card.GetComponent<Image>().color = new Color32(231, 47, 73, 250);;
-        }
+            case "answer":
+                GetAnswer();
+                break;
 
-        GetNewQuestion();
+            case "question":
+                GetNewQuestion();
+                break;
+
+            case "results":
+                EndGame();
+                break;
+
+            default:
+                GetNewQuestion();
+                break;
+        }
     }
 
+    //get new question 
     public void GetNewQuestion()
     {
-        int r = Random.Range(1, GameSettings.maxQuestionId);
+        //adapt UI
+        panelGame.transform.Find("panelAnswer").gameObject.SetActive(false);
+        panelGame.transform.Find("panelQuestion").gameObject.SetActive(true);
+        textButtonNext.text = "Verdict!";
+
+        //set default choice for each player
+        foreach(Transform card in content.transform) card.gameObject.GetComponent<PlayerManager>().SetDefaultChoice();
+
+        //choose random question from question list
+        int r = Random.Range(1, GameSettings.questionList.Count());
         Question newQuestion = GameSettings.GetQuestion(r);
         question.text =  newQuestion.label;
+
+        //update game settings
+        GameSettings.gameStatus = "answer";
     }
 
+    //get answer results
+    public void GetAnswer()
+    {
+        string text = "";
+        int yesVotes = 0;
+        int noVotes = 0;
+        bool yesWon = true;
+        List<string> minorityList = new List<string>();
+
+        //adapt UI
+        panelGame.transform.Find("panelAnswer").gameObject.SetActive(true);
+        panelGame.transform.Find("panelQuestion").gameObject.SetActive(false);
+        textButtonNext.text = "Question suivante";
+
+        //decide if yes or no is majority
+        foreach (Player player in GameSettings.playerList)
+        {
+            if(player.playerAnswer == true) yesVotes++;
+            else noVotes++;   
+        }
+
+        //give majority a point and assign to string minority's player's name
+        if(yesVotes != noVotes)
+        {
+            if (yesVotes == playerList.Count() || noVotes == playerList.Count())
+            {
+                text = "Tout le monde a répondu la même chose, pénalité! Tout le monde perd!";
+            }
+            else
+            {
+                if(yesVotes < noVotes) yesWon = false;
+
+                foreach (Player player in GameSettings.playerList)
+                {
+                    if(player.playerAnswer == yesWon) player.playerPoints++;
+                        else minorityList.Add(player.playerName);
+                }
+
+                //construct sentences depending of minority number and position in list
+                foreach(string name in minorityList)
+                {
+                    if (name == minorityList.Last() && minorityList.Count() == 1) text += name + " est le seul perdant! Dommage!";
+                    else if(name == minorityList.Last()) text += "et " + name + " ont perdu!";
+                    else if (name == minorityList[minorityList.Count()-2]) text += name + " ";
+                    else text += name + ", ";
+                }
+            }
+        }
+        else
+        {
+            text = "Égalité, tout le monde est perdant!";
+        } 
+
+        answer.text = text;
+
+        //update game settings
+        GameSettings.gameQuestionCount++;
+        if(GameSettings.gameQuestionCount >= GameSettings.gameQuestionNumber) GameSettings.gameStatus = "results";
+        else GameSettings.gameStatus = "question";
+    }
+
+    //stop game to go to menu
     public void GoToMenu()
     {
+        GameSettings.SetDefaultSettings();
         SceneManager.LoadScene("Menu");
     }
 
-    public void ToggleHelp()
+    //toggle rules panel
+    public void ToggleRules()
     {
         if(rulesToggled == true) panelRules.SetActive(true);
         else panelRules.SetActive(false);
         rulesToggled = !rulesToggled;
+    }
+
+    //show result screen
+    public void EndGame()
+    {
+        //adapt UI
+
+        panelResults.SetActive(true);
+        panelGame.SetActive(false);
+
+        //make player list ordered by points
+        int rank = 1;
+        List<Player> rankedList = GameSettings.playerList.OrderByDescending(o=>o.playerPoints).ToList();
+        foreach(Player player in rankedList)
+        {
+            GameObject card = Instantiate(playerCardResults) as GameObject;
+            card.GetComponentInChildren<TMP_Text>().text = player.getPlayerName();
+            card.transform.Find("textRank").GetComponent<TMP_Text>().text = rank.ToString();
+            card.transform.Find("textName").GetComponent<TMP_Text>().text = player.getPlayerName();
+            card.transform.Find("textPoints").GetComponent<TMP_Text>().text = player.getPlayerPoints().ToString();
+            
+            //set color of podium
+            switch (rank)
+            {
+                case 1:
+                    card.transform.Find("textRank").GetComponent<TMP_Text>().color = new Color32(255, 215, 0, 255);
+                    break;
+
+                case 2:
+                    card.transform.Find("textRank").GetComponent<TMP_Text>().color = new Color32(196, 202, 206, 255);
+                    break;
+
+                case 3:
+                    card.transform.Find("textRank").GetComponent<TMP_Text>().color = new Color32(177, 86,15, 255);
+                    break;
+
+                default:
+                    card.transform.Find("textRank").GetComponent<TMP_Text>().color = Color.white;
+                    break;
+            }
+
+            resultsContent.GetComponent<RectTransform>().offsetMin -= new Vector2(0, card.GetComponent<RectTransform>().rect.height + 30);
+            card.transform.SetParent(resultsContent.transform, false);
+            rank++;
+        }
+
     }
 }

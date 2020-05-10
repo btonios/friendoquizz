@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9056604, g: 0.089711644, b: 0.2070375, a: 0.98039216}
+  m_Color: {r: 0.90588236, g: 0.18431373, b: 0.28627452, a: 0.98039216}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -280,7 +280,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1758932290536506570}
-        m_MethodName: OnToggleValueChanged
+        m_MethodName: ChangePlayerAnswer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -306,4 +306,5 @@ MonoBehaviour:
   playerId: 0
   playerName: 
   playerPoints: 0
-  status: 0
+  toggle: {fileID: 5198162492949139764}
+  toggleImg: {fileID: 1276366319626400571}

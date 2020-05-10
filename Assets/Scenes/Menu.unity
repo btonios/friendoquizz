@@ -226,6 +226,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4636808587553049648}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &370866534 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4636808586483828573, guid: 1bc51558358513543803e8ca24f40d92,
+    type: 3}
+  m_PrefabInstance: {fileID: 4636808587553049648}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &756718988
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,6 +304,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &823972584 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 326239659988920728, guid: 1bc51558358513543803e8ca24f40d92,
+    type: 3}
+  m_PrefabInstance: {fileID: 4636808587553049648}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &989057273
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,6 +410,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1945736435, guid: 1bc51558358513543803e8ca24f40d92, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2068884426}
     - target: {fileID: 985155212629194808, guid: 1bc51558358513543803e8ca24f40d92,
         type: 3}
       propertyPath: m_Name
@@ -527,6 +549,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2068884426}
+    - target: {fileID: 4636808586932145297, guid: 1bc51558358513543803e8ca24f40d92,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4636808586967005670, guid: 1bc51558358513543803e8ca24f40d92,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -556,6 +583,16 @@ PrefabInstance:
       propertyPath: panelRules
       value: 
       objectReference: {fileID: 201162148}
+    - target: {fileID: 7427333033124712284, guid: 83d6f6243c5b1f94eb0cd375de850032,
+        type: 3}
+      propertyPath: panelDisabler
+      value: 
+      objectReference: {fileID: 823972584}
+    - target: {fileID: 7427333033124712284, guid: 83d6f6243c5b1f94eb0cd375de850032,
+        type: 3}
+      propertyPath: textTimer
+      value: 
+      objectReference: {fileID: 370866534}
     - target: {fileID: 7427333033124712285, guid: 83d6f6243c5b1f94eb0cd375de850032,
         type: 3}
       propertyPath: m_LocalPosition.x
