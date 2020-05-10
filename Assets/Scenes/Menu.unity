@@ -391,6 +391,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1379659572 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7926757975126156879, guid: 1bc51558358513543803e8ca24f40d92,
+    type: 3}
+  m_PrefabInstance: {fileID: 4636808587553049648}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2068884426 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7427333033124712284, guid: 83d6f6243c5b1f94eb0cd375de850032,
@@ -410,6 +416,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 73033608, guid: 1bc51558358513543803e8ca24f40d92, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2068884426}
+    - target: {fileID: 717188418, guid: 1bc51558358513543803e8ca24f40d92, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2068884426}
     - target: {fileID: 1945736435, guid: 1bc51558358513543803e8ca24f40d92, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -529,6 +543,26 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 180815806}
+    - target: {fileID: 1200863051417672810, guid: 1bc51558358513543803e8ca24f40d92,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2068884426}
+    - target: {fileID: 1689601555775256542, guid: 1bc51558358513543803e8ca24f40d92,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2068884426}
+    - target: {fileID: 2708256864150280172, guid: 1bc51558358513543803e8ca24f40d92,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2068884426}
+    - target: {fileID: 4208355466802134412, guid: 1bc51558358513543803e8ca24f40d92,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2068884426}
     - target: {fileID: 4636808586013352143, guid: 1bc51558358513543803e8ca24f40d92,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -549,11 +583,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2068884426}
-    - target: {fileID: 4636808586932145297, guid: 1bc51558358513543803e8ca24f40d92,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4636808586967005670, guid: 1bc51558358513543803e8ca24f40d92,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -566,6 +595,18 @@ PrefabInstance:
       objectReference: {fileID: 2068884426}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bc51558358513543803e8ca24f40d92, type: 3}
+--- !u!114 &4636808587553049649 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 232999485049789202, guid: 1bc51558358513543803e8ca24f40d92,
+    type: 3}
+  m_PrefabInstance: {fileID: 4636808587553049648}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7427333033205490838
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -593,6 +634,16 @@ PrefabInstance:
       propertyPath: textTimer
       value: 
       objectReference: {fileID: 370866534}
+    - target: {fileID: 7427333033124712284, guid: 83d6f6243c5b1f94eb0cd375de850032,
+        type: 3}
+      propertyPath: textQN
+      value: 
+      objectReference: {fileID: 4636808587553049649}
+    - target: {fileID: 7427333033124712284, guid: 83d6f6243c5b1f94eb0cd375de850032,
+        type: 3}
+      propertyPath: panelSettings
+      value: 
+      objectReference: {fileID: 1379659572}
     - target: {fileID: 7427333033124712285, guid: 83d6f6243c5b1f94eb0cd375de850032,
         type: 3}
       propertyPath: m_LocalPosition.x

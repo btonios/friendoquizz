@@ -16,7 +16,7 @@ public static class GameSettings
 
     public static void SetDefaultSettings()
     {
-        gameQuestionNumber = 2;
+        gameQuestionNumber = 10;
         gameQuestionCount = 0;
         gameStatus = "menu";
         playerNumber = 0;
@@ -59,6 +59,21 @@ public static class GameSettings
         if((timer+value) <= 60 && (timer+value) >= 10)
         {
             timer += value; 
+            canChange = true; 
+        }
+
+        return canChange;
+    }
+
+    //changes value if sum is < to max and > to min values
+    //returns bool: false -> couldn't change value
+    //              true  -> value has been changed
+    public static bool ChangeQuestionNumber(int value)
+    {
+        bool canChange = false;
+        if((gameQuestionNumber+value) <= 100 && (gameQuestionNumber+value) >= 1)
+        {
+            gameQuestionNumber += value; 
             canChange = true; 
         }
 

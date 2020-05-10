@@ -13,27 +13,26 @@ public class MenuManager : MonoBehaviour
     public GameObject playerCard;
     public GameObject panelRules;
     public GameObject panelDisabler;
+    public GameObject panelSettings;
     public TMP_Text textTimer;
+    public TMP_Text textQN;
 
     public List<Player> playerList;
     public bool rulesToggled;
+    public bool settingsToggled;
     public bool canChange;
-    bool fading= false;
+    bool fading = false;
 
     TouchScreenKeyboard keyboard;
 
     
     void Start()
     {
+        rulesToggled = true;
+        settingsToggled = true;
+    
         GameSettings.gameStatus = "menu";
-        List<Player> playerList = new List<Player>();
-
-        rulesToggled = false;
-        ToggleRules();
-
-        GameSettings.useTimer = false;
-        ToggleTimer();
-        
+        List<Player> playerList = new List<Player>(); 
 
         GameSettings.setList();
     }
@@ -41,7 +40,6 @@ public class MenuManager : MonoBehaviour
     //makes game start
     public void OnPlay()
     {
-        GameSettings.LoadQuestions();
         SceneManager.LoadScene("Game");
     }
     
@@ -109,5 +107,24 @@ public class MenuManager : MonoBehaviour
 
     }
 
+    //changes question number by adding or removing by given value
+    //if can't, starts a coroutine to fade timer text color
+    public void ChangeQuestionNumber(int value)
+    {
+       canChange = GameSettings.ChangeQuestionNumber(value);
+       if (canChange == false && fading == false)
+       {
+           StartCoroutine(FadeError(textQN.GetComponent<TMP_Text>()));
+           fading = true;
+       } 
+       textQN.text = GameSettings.gameQuestionNumber.ToString();
+    }
+
+    public void ToggleSettings()
+    {
+        if(settingsToggled == true) panelSettings.SetActive(true);
+        else panelSettings.SetActive(false);
+        settingsToggled = !settingsToggled;
+    }
 
 }
