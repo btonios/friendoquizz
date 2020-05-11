@@ -8,9 +8,10 @@ using System.Runtime.Serialization.Formatters.Binary;
 public static class SaveData
 {
     public static string QUESTIONS_DATA_PATH = Application.persistentDataPath + "/questions.data";
+    
 
     //Save question list in questions.data file 
-    public static void SaveQuestions(List<Question> questions)
+    public static void SaveQuestions()
     {
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(QUESTIONS_DATA_PATH, FileMode.Create);
@@ -35,12 +36,10 @@ public static class SaveData
             stream.Close();
         }
         
-        //if no question found in questions.data, one debug question is created in list
+        //if no question found in questions.data, alert
         else 
         {
             Debug.LogError("ALERT: question.data FILE NOT FOUND");
-            Question errorQuestion = new Question(0, "NO QUESTION FOUND IN DATABASE");
-            data.Add(errorQuestion);
         }
 
         return data;
@@ -49,5 +48,23 @@ public static class SaveData
     public static void ResetQuestions()
     {
         File.Delete(QUESTIONS_DATA_PATH);
+        GameSettings.questionList = new List<Question>();
+    }
+
+    public static void DebugData()
+    {
+        SaveData.ResetQuestions();
+        GameSettings.setList();
+        SaveData.SaveQuestions();
+    }
+
+    public static void debuglist()
+    {
+        string t = "";
+        foreach(Question question in GameSettings.questionList)
+        {
+            t += question.id + ", ";
+        }
+        Debug.Log(t);
     }
 }

@@ -6,7 +6,7 @@ using System.Xml;
 using System.Xml.Serialization;
 
 [System.Serializable]
-public class Question 
+public class Question
 { 	
     public int id;
     public string label;
@@ -14,13 +14,27 @@ public class Question
     public string status;
     public string language;
 
-    public Question (int id = 0, string label = null, int points = 0, string status = null, string language = null)
+    public bool activated;
+
+    public Question (int id = 0, string label = null, int points = 0, string status = null, string language = null, bool activated = true)
     {
         this.id = id;
         this.label = label;
         this.points = points;
         this.status = status;
         this.language = language;
+
+        this.activated = activated;
+    }
+
+    public bool getActivated()
+    {
+        return this.activated;
+    }
+
+    public void setActivated(bool activated)
+    {
+        this.activated = activated;
     }
 
     public int getId()

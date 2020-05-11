@@ -14,27 +14,30 @@ public class MenuManager : MonoBehaviour
     public GameObject panelRules;
     public GameObject panelDisabler;
     public GameObject panelSettings;
+    public GameObject panelQuestionCreator;
+    public GameObject panelMainMenu;
     public TMP_Text textTimer;
     public TMP_Text textQN;
 
     public List<Player> playerList;
     public bool rulesToggled;
     public bool settingsToggled;
+    public bool qcToggled;
     public bool canChange;
     bool fading = false;
 
-    TouchScreenKeyboard keyboard;
 
     
     void Start()
     {
         rulesToggled = true;
         settingsToggled = true;
+        qcToggled = true;
     
         GameSettings.gameStatus = "menu";
         List<Player> playerList = new List<Player>(); 
 
-        GameSettings.setList();
+        GameSettings.SetQuestionList();
     }
 
     //makes game start
@@ -60,7 +63,17 @@ public class MenuManager : MonoBehaviour
     public void setListQuestionTest()
     {
         GameSettings.setList();
-        SaveData.SaveQuestions(GameSettings.questionList);
+        SaveData.SaveQuestions();
+    }
+
+    public void SaveCurrentList()
+    {
+        SaveData.SaveQuestions();
+    }
+
+    public void ResetList()
+    {
+        SaveData.ResetQuestions();
     }
 
     //toggle function that either sets rules panel active or false
@@ -127,4 +140,23 @@ public class MenuManager : MonoBehaviour
         settingsToggled = !settingsToggled;
     }
 
+    public void ToggleQuestionCreator()
+    {
+        if(qcToggled == true)
+        {
+            panelMainMenu.SetActive(false);
+            panelQuestionCreator.SetActive(true);
+        } 
+        else
+        {
+            panelMainMenu.SetActive(true);
+            panelQuestionCreator.SetActive(false);
+        } 
+        qcToggled = !qcToggled;
+    }
+
+    public void DebugList()
+    {
+        SaveData.debuglist();
+    }
 }

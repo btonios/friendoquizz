@@ -9,11 +9,11 @@ public class Player : Object
     public bool playerAnswer;
     public int playerPoints;
 
-    public Player(int pId, string pName = "Player", bool playerAnswer = false, int pPoints = 0)
+    public Player(int pId, string pName = "Player", bool pAnswer = false, int pPoints = 0)
     {
         this.playerId = pId;
         this.playerName = pName;
-        this.playerAnswer = playerAnswer;
+        this.playerAnswer = pAnswer;
         this.playerPoints = pPoints;
     }
 
