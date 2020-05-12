@@ -16,7 +16,7 @@ public static class SaveData
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(QUESTIONS_DATA_PATH, FileMode.Create);
 
-        List<Question> data = GameSettings.questionList;
+        List<Question> data = GlobalVariables.questionList;
 
         formatter.Serialize(stream, data);
         stream.Close();
@@ -48,20 +48,20 @@ public static class SaveData
     public static void ResetQuestions()
     {
         File.Delete(QUESTIONS_DATA_PATH);
-        GameSettings.questionList = new List<Question>();
+        GlobalVariables.questionList = new List<Question>();
     }
 
     public static void DebugData()
     {
         SaveData.ResetQuestions();
-        GameSettings.setList();
+        GlobalVariables.setList();
         SaveData.SaveQuestions();
     }
 
     public static void debuglist()
     {
         string t = "";
-        foreach(Question question in GameSettings.questionList)
+        foreach(Question question in GlobalVariables.questionList)
         {
             t += question.id + ", ";
         }

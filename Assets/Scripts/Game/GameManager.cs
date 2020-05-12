@@ -79,8 +79,8 @@ public class GameManager : MonoBehaviour
         foreach(Transform card in content.transform) card.gameObject.GetComponent<PlayerManager>().SetDefaultChoice();
 
         //choose random question from question list
-        int r = Random.Range(1, GameSettings.questionList.Count());
-        Question newQuestion = GameSettings.GetQuestion(r);
+        int r = Random.Range(1, GlobalVariables.questionList.Count());
+        Question newQuestion = GlobalVariables.GetQuestion(r);
         question.text =  newQuestion.label;
 
         //update game settings

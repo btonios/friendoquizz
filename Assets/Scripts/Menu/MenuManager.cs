@@ -40,7 +40,7 @@ public class MenuManager : MonoBehaviour
         GameSettings.gameStatus = "menu";
         List<Player> playerList = new List<Player>(); 
 
-        GameSettings.SetQuestionList();
+        GlobalVariables.SetQuestionList();
     }
 
     //makes game start
@@ -65,7 +65,7 @@ public class MenuManager : MonoBehaviour
     //sets question list
     public void setListQuestionTest()
     {
-        GameSettings.setList();
+        GlobalVariables.setList();
         SaveData.SaveQuestions();
     }
 
@@ -159,7 +159,6 @@ public class MenuManager : MonoBehaviour
             foreach (Transform card in content) 
             {
                 Destroy(card.gameObject);
-                Debug.Log("xd");
             }  
         } 
         qcToggled = !qcToggled;

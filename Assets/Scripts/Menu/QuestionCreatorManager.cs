@@ -12,14 +12,14 @@ public class QuestionCreatorManager : MonoBehaviour
     public int GetLastCustomId()
     {
         int lastId = 0;
-        foreach(Question question in GameSettings.questionList)
+        foreach(Question question in GlobalVariables.questionList)
             if(question.id < lastId) lastId = question.id;
         return lastId;
     }
 
     public void ShowExistingQuestions()
     {
-        foreach(Question question in GameSettings.questionList)
+        foreach(Question question in GlobalVariables.questionList)
         {
             if(question.id<0)
             {

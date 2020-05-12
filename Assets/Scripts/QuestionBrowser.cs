@@ -11,11 +11,13 @@ public class QuestionBrowser : MonoBehaviour
     public int points;
     public string status;
     public string language;
+    public string publisherMAC;
+    public string nickname;
+    public string date;
     public bool activated;
     public bool downloaded;
 
 
-    public int test;
     public TMP_Text textQuestion;
     public TMP_Text textInfos;
     public GameObject imageDownload;
@@ -23,17 +25,19 @@ public class QuestionBrowser : MonoBehaviour
 
     public Question GetQuestionData()
     {
-        return new Question(this.id, this.label, this.points , this.status,  this.language , this.activated , this.downloaded);
+        return new Question(this.id, this.label, this.points , this.status,  this.language , this.publisherMAC, this.nickname, this.date, this.activated , this.downloaded);
     }
 
     public void SetQuestionData(Question data)
     {
-        test = data.id;
         this.id = data.id;
         this.label = data.label;
         this.points = data.points;
         this.status = data.status;
         this.language = data.language;
+        this.publisherMAC = data.publisherMAC;
+        this.nickname = data.nickname;
+        this.date = data.date;
         this.activated = data.activated;
         this.downloaded = data.downloaded;
 
@@ -59,14 +63,14 @@ public class QuestionBrowser : MonoBehaviour
     {
         if(this.downloaded == false)
         {
-            GameSettings.SetQuestion(GetQuestionData());
+            GlobalVariables.SetQuestion(GetQuestionData());
             GetComponent<Image>().color = new Color32(30, 30, 30, 150);
             imageRemove.SetActive(true);
             imageDownload.SetActive(false);
         }
         else
         {
-            GameSettings.DeleteQuestion(GetQuestionData());
+            GlobalVariables.DeleteQuestion(GetQuestionData());
             GetComponent<Image>().color = new Color32(0, 0, 0, 150);
             imageRemove.SetActive(false);
             imageDownload.SetActive(true);

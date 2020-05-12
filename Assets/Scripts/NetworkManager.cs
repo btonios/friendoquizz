@@ -10,16 +10,26 @@ public class NetworkManager : MonoBehaviour
 {
     public const string URL = "127.0.0.1/friendoquizz/";
 
-
-    public string PHPFile(string file, string args="")
+    void Start()
     {
-        string entireURL = URL+file+".php"+args;
+        GlobalVariables.SetMACAddress();
+        GlobalVariables.NICKNAME = "anonymous";
+    }
+
+    public string PHPFile(string file)
+    {
+        string entireURL = URL+file+".php";
         return entireURL;
     }
 
+    public void GetBrowserQuestions()
+    {
+        StartCoroutine(GetBrowserQuestions(PHPFile("browseQuestions")));
+    } 
+
     IEnumerator GetBrowserQuestions(string url)
     {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(PHPFile("browseQuestions")))
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
             yield return webRequest.SendWebRequest();
             if (webRequest.isNetworkError)
@@ -28,7 +38,6 @@ public class NetworkManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("Received: " + webRequest.downloadHandler.text);
                 string jsonResponse = fixJson(webRequest.downloadHandler.text);
                 Question[] questions = JsonHelper.FromJson<Question>(jsonResponse);
 
@@ -43,10 +52,31 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
-    public void GetBrowserQuestions()
+    
+
+
+
+    public void UploadQuestion(Question question)
     {
-        StartCoroutine(GetBrowserQuestions(PHPFile("getQuestions")));
-    } 
+        StartCoroutine(PostBrowserQuestion(PHPFile("uploadQuestion"), question));
+    }
+
+    IEnumerator PostBrowserQuestion(string url, Question question)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("label", question.label);
+        form.AddField("userMacAddress", GlobalVariables.MAC_ADDRESS);
+        form.AddField("nickname", GlobalVariables.NICKNAME);
+
+        using (UnityWebRequest webRequest  = UnityWebRequest.Post(url, form))
+        {
+             yield return webRequest.SendWebRequest();
+            if (webRequest.isNetworkError)
+            {
+                Debug.LogError("Question couldn't be sent. See error: " + webRequest.error);
+            }
+        }
+    }
 
     string fixJson(string value)
     {

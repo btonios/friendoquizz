@@ -346,11 +346,22 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 7837165045716626604}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3012920587584434323
 GameObject:
   m_ObjectHideFlags: 0
@@ -931,9 +942,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 066d45b557955d748a995751e02a142f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questionData: {fileID: 11400000, guid: 2c9205f2b401d834caaf535ea0cafb71, type: 2}
+  id: 0
+  label: 
+  points: 0
+  status: 
+  language: 
+  publisherMAC: 
+  nickname: 
+  date: 
+  activated: 0
+  downloaded: 0
   textQuestion: {fileID: 6117973804340600349}
   editQuestion: {fileID: 7923443589237301503}
+  buttonUpload: {fileID: 4989786437171415684}
 --- !u!1 &8806474184847034853
 GameObject:
   m_ObjectHideFlags: 0

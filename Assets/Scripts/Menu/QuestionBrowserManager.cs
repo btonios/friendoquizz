@@ -28,21 +28,19 @@ public class QuestionBrowserManager : MonoBehaviour
         {
             GameObject card = CreateQuestionCard();
         
-            if(GameSettings.questionList.Any(q=>q.id == question.id))
+            if(GlobalVariables.questionList.Any(q=>q.id == question.id))
             {
                 card.GetComponent<QuestionBrowser>().downloaded = true;
 
                 card.GetComponent<Image>().color = new Color32(30, 30, 30, 150);
                 card.transform.Find("buttonDownload").Find("imageDownload").gameObject.SetActive(false);
                 card.transform.Find("buttonDownload").Find("imageRemove").gameObject.SetActive(true);
-                Debug.Log(card.GetComponent<QuestionBrowser>().id+ "-"+ " true |"+card.GetComponent<QuestionBrowser>().downloaded);
             }
             else
             {
 
                 card.GetComponent<QuestionBrowser>().downloaded = false;
                 card.transform.Find("buttonDownload").Find("imageRemove").gameObject.SetActive(false);
-                Debug.Log(card.GetComponent<QuestionBrowser>().id+ "-"+ " false |"+card.GetComponent<QuestionBrowser>().downloaded);
             }
 
             card.GetComponent<QuestionBrowser>().SetQuestionData(question);
