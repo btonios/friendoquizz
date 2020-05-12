@@ -16,6 +16,7 @@ public class MenuManager : MonoBehaviour
     public GameObject panelSettings;
     public GameObject panelQuestionCreator;
     public GameObject panelMainMenu;
+    public GameObject panelQuestionBrowser;
     public TMP_Text textTimer;
     public TMP_Text textQN;
 
@@ -23,6 +24,7 @@ public class MenuManager : MonoBehaviour
     public bool rulesToggled;
     public bool settingsToggled;
     public bool qcToggled;
+    public bool qbToggled;
     public bool canChange;
     bool fading = false;
 
@@ -33,6 +35,7 @@ public class MenuManager : MonoBehaviour
         rulesToggled = true;
         settingsToggled = true;
         qcToggled = true;
+        qbToggled = true;
     
         GameSettings.gameStatus = "menu";
         List<Player> playerList = new List<Player>(); 
@@ -140,19 +143,47 @@ public class MenuManager : MonoBehaviour
         settingsToggled = !settingsToggled;
     }
 
-    public void ToggleQuestionCreator()
+    public void ToggleQuestionCreator(Transform content)
     {
         if(qcToggled == true)
         {
             panelMainMenu.SetActive(false);
             panelQuestionCreator.SetActive(true);
+            GetComponent<QuestionCreatorManager>().ShowExistingQuestions();
         } 
         else
         {
             panelMainMenu.SetActive(true);
             panelQuestionCreator.SetActive(false);
+
+            foreach (Transform card in content) 
+            {
+                Destroy(card.gameObject);
+                Debug.Log("xd");
+            }  
         } 
         qcToggled = !qcToggled;
+    }
+
+    public void ToggleQuestionBrowser(Transform content)
+    {
+        if(qbToggled == true)
+        {
+            panelMainMenu.SetActive(false);
+            panelQuestionBrowser.SetActive(true);
+            GetComponent<QuestionBrowserManager>().SearchQuestions();
+        } 
+        else
+        {
+            panelMainMenu.SetActive(true);
+            panelQuestionBrowser.SetActive(false);
+
+            foreach (Transform card in content) 
+            {
+                Destroy(card.gameObject);
+            }      
+        } 
+        qbToggled = !qbToggled;
     }
 
     public void DebugList()

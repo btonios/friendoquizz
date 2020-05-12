@@ -10,12 +10,17 @@ public class QuestionManager : MonoBehaviour
     public int points;
     public string status;
     public string language;
-
     public bool activated;
+    public bool downloaded;
+
 
     public TMP_InputField textQuestion;
     public GameObject editQuestion;
 
+     public Question Getthis()
+    {
+        return new Question(this.id, this.label, this.points , this.status,  this.language , this.activated , this.downloaded);
+    }
 
     public void SetQuestionData(Question data)
     {
@@ -24,10 +29,10 @@ public class QuestionManager : MonoBehaviour
         this.points = data.points;
         this.status = data.status;
         this.language = data.language;
+        this.activated = data.activated;
+        this.downloaded = data.downloaded;
 
         textQuestion.text = this.label;
-
-        Question question = new Question(data.id, data.label, data.points, data.status, data.language, data.activated);
     }
 
     public void StartEditQuestion()
@@ -39,15 +44,14 @@ public class QuestionManager : MonoBehaviour
 
     public void EndEditQuestion()
     {
-        label = textQuestion.text;
-        Question question = new Question(id, label, points, status, language, activated);
-        GameSettings.SetQuestion(question);
+        this.label = textQuestion.text;
+        GameSettings.SetQuestion(Getthis());
         editQuestion.SetActive(true);
     }
     
     public void DeleteQuestion()
     {
-        GameSettings.DeleteQuestion(this.id);
+        GameSettings.DeleteQuestion(Getthis());
         Destroy(gameObject);
     }
 

@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7427333033124712285}
   - component: {fileID: 7427333033124712284}
+  - component: {fileID: 69487255}
+  - component: {fileID: 69487257}
+  - component: {fileID: 69487258}
   m_Layer: 0
   m_Name: MenuManager
   m_TagString: Untagged
@@ -47,6 +50,58 @@ MonoBehaviour:
   playerCard: {fileID: 5786993297098800985, guid: 9584ed4c78a41454e80c8113ef4aac89,
     type: 3}
   panelRules: {fileID: 0}
+  panelDisabler: {fileID: 0}
+  panelSettings: {fileID: 0}
+  panelQuestionCreator: {fileID: 0}
+  panelMainMenu: {fileID: 0}
+  textTimer: {fileID: 0}
+  textQN: {fileID: 0}
   playerList: []
-  tempString: 
   rulesToggled: 0
+  settingsToggled: 0
+  qcToggled: 0
+  qbToggled: 0
+  canChange: 0
+--- !u!114 &69487255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7427333033124712287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4bbce0caaf7ae74d8a2d878698a639e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  content: {fileID: 0}
+  panelQuestion: {fileID: 8150960362058659418, guid: 3625c05794b256749b5e609f2ca87a8b,
+    type: 3}
+--- !u!114 &69487257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7427333033124712287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0cadc8c34f7fb841ae7b2ed62e4bd40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &69487258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7427333033124712287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc528906a19eea7449482eeed2103926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  content: {fileID: 0}
+  panelQuestion: {fileID: 8150960362058659418, guid: 3625c05794b256749b5e609f2ca87a8b,
+    type: 3}
+  browserQuestionList: []

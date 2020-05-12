@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using System.Xml;
-using System.Xml.Serialization;
-
-[System.Serializable]
+ [System.Serializable]
 public class Question
 { 	
     public int id;
@@ -13,28 +10,19 @@ public class Question
     public int points;
     public string status;
     public string language;
-
     public bool activated;
+    public bool downloaded;
 
-    public Question (int id = 0, string label = null, int points = 0, string status = null, string language = null, bool activated = true)
+    public Question (int id = 0, string label = null, int points = 0, string status = null, string language = null, bool activated = true, bool downloaded = false)
     {
         this.id = id;
         this.label = label;
         this.points = points;
         this.status = status;
         this.language = language;
-
         this.activated = activated;
-    }
+        this.downloaded = downloaded;
 
-    public bool getActivated()
-    {
-        return this.activated;
-    }
-
-    public void setActivated(bool activated)
-    {
-        this.activated = activated;
     }
 
     public int getId()

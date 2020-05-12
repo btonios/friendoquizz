@@ -36,7 +36,7 @@ public class QuestionCreatorManager : MonoBehaviour
         GameObject card = CreateQuestionCard();
 
         //add question to local database
-        Question question = new Question(GetLastCustomId()-1, "", 0, "custom", "french",false);
+        Question question = new Question(GetLastCustomId()-1, "", 0, "custom", "french");
 
         //set created question attributes
         card.GetComponent<QuestionManager>().SetQuestionData(question);
@@ -55,13 +55,5 @@ public class QuestionCreatorManager : MonoBehaviour
     public void UploadQuestion()
     {
 
-    }
-   
-    public void DeleteQuestionCards()
-    {
-        foreach (Transform card in content.transform) 
-        {
-            GameObject.Destroy(card.gameObject);
-        }         
     }
 }

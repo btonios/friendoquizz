@@ -98,18 +98,17 @@ public static class GameSettings
         SaveData.SaveQuestions();
     }
 
-    public static bool DeleteQuestion(int id)
+    public static bool DeleteQuestion(Question question)
     {
         bool isDeleted = false;
         for(int i = GameSettings.questionList.Count - 1; i > -1; i--)
         {
-            if(GameSettings.questionList[i].id == id)
+            if(GameSettings.questionList[i].id == question.id)
             {
                 GameSettings.questionList.RemoveAt(i);
                 isDeleted = true;
             }
         }
-        Debug.Log("xd");
         SaveData.SaveQuestions();
         return isDeleted;
     }
