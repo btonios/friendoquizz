@@ -16,6 +16,12 @@ public class NetworkManager : MonoBehaviour
         GlobalVariables.NICKNAME = "anonymous";
     }
 
+    string fixJson(string value)
+    {
+        value = "{\"Items\":" + value + "}";
+        return value;
+    }
+
     public string PHPFile(string file)
     {
         string entireURL = URL+file+".php";
@@ -29,7 +35,10 @@ public class NetworkManager : MonoBehaviour
 
     IEnumerator GetBrowserQuestions(string url)
     {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
+        WWWForm form = new WWWForm();
+        form.AddField("userMacAddress", GlobalVariables.MAC_ADDRESS);
+
+        using (UnityWebRequest webRequest  = UnityWebRequest.Post(url, form))
         {
             yield return webRequest.SendWebRequest();
             if (webRequest.isNetworkError)
@@ -38,11 +47,12 @@ public class NetworkManager : MonoBehaviour
             }
             else
             {
+                //convert from json to list<question>
                 string jsonResponse = fixJson(webRequest.downloadHandler.text);
                 Question[] questions = JsonHelper.FromJson<Question>(jsonResponse);
 
-                //convert from Array to List
-                List<Question> retQuestions = new List<Question>();
+                //refresh browser question list
+                GetComponent<QuestionBrowserManager>().browserQuestionList = new List<Question>();
                 foreach(Question question in questions)
                 {
                     GetComponent<QuestionBrowserManager>().browserQuestionList.Add(question);
@@ -70,7 +80,7 @@ public class NetworkManager : MonoBehaviour
 
         using (UnityWebRequest webRequest  = UnityWebRequest.Post(url, form))
         {
-             yield return webRequest.SendWebRequest();
+            yield return webRequest.SendWebRequest();
             if (webRequest.isNetworkError)
             {
                 Debug.LogError("Question couldn't be sent. See error: " + webRequest.error);
@@ -78,10 +88,37 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
-    string fixJson(string value)
+
+
+
+    public void ChangeQuestionPoints(Question question)
     {
-        value = "{\"Items\":" + value + "}";
-        return value;
+        StartCoroutine(PostChangeQuestionPoints(PHPFile("changeQuestionPoints"), question));
     }
+
+    IEnumerator PostChangeQuestionPoints(string url, Question question)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("questionId", question.id);
+        form.AddField("userMacAddress", GlobalVariables.MAC_ADDRESS);
+        form.AddField("vote", question.voteY_N);
+
+        using (UnityWebRequest webRequest  = UnityWebRequest.Post(url, form))
+        {
+             yield return webRequest.SendWebRequest();
+            if (webRequest.isNetworkError)
+            {
+                Debug.LogError("Question couldn't be sent. See error: " + webRequest.error);
+            }
+            else
+            {
+                Debug.Log(webRequest.downloadHandler.text);
+            }
+        }
+    }
+
+    
+
+
 
 }

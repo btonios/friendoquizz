@@ -58,13 +58,5 @@ public static class SaveData
         SaveData.SaveQuestions();
     }
 
-    public static void debuglist()
-    {
-        string t = "";
-        foreach(Question question in GlobalVariables.questionList)
-        {
-            t += question.id + ", ";
-        }
-        Debug.Log(t);
-    }
+    
 }

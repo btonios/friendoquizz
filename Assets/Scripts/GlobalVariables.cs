@@ -65,6 +65,7 @@ public class GlobalVariables
         }
         else
         {
+            Debug.Log(question.id);
             questionList.Add(question);
         }
         SaveData.SaveQuestions();
@@ -96,5 +97,15 @@ public class GlobalVariables
         questionList.Add(new Question(5, "As-tu déjà été bourré?"));
 
         SaveData.SaveQuestions();
+    }
+
+    public static void debuglist()
+    {
+        string t = "";
+        foreach(Question question in questionList)
+        {
+            t += question.id + ", ";
+        }
+        Debug.Log(t);
     }
 }

@@ -13,10 +13,13 @@ public class Question
     public string publisherMAC;
     public string nickname;
     public string date;
+    public int voteY_N;
     public bool activated;
     public bool downloaded;
 
-    public Question (int id = 0, string label = null, int points = 0, string status = null, string language = null, string publisherMAC = null, string nickname = null, string date = null, bool activated = true, bool downloaded = false)
+    public Question (int id = 0, string label = null, int points = 0, string status = null, 
+                    string language = null, string publisherMAC = null, string nickname = null, 
+                    string date = null, int voteY_N = 0, bool activated = true, bool downloaded = false)
     {
         this.id = id;
         this.label = label;
@@ -26,9 +29,20 @@ public class Question
         this.publisherMAC = publisherMAC;
         this.nickname = nickname;
         this.date = date;
+        this.voteY_N = voteY_N;
         this.activated = activated;
         this.downloaded = downloaded;
 
+    }
+
+    public int getVoteY_N()
+    {
+        return this.voteY_N;
+    }
+
+    public void setVoteY_N(int voteY_N)
+    {
+        this.voteY_N = voteY_N;
     }
 
     public int getId()

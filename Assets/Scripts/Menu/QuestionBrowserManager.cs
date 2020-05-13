@@ -38,7 +38,7 @@ public class QuestionBrowserManager : MonoBehaviour
             }
             else
             {
-
+                
                 card.GetComponent<QuestionBrowser>().downloaded = false;
                 card.transform.Find("buttonDownload").Find("imageRemove").gameObject.SetActive(false);
             }

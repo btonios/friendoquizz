@@ -17,7 +17,6 @@ public class MenuManager : MonoBehaviour
     public GameObject panelQuestionCreator;
     public GameObject panelMainMenu;
     public GameObject panelQuestionBrowser;
-    public TMP_Text textTimer;
     public TMP_Text textQN;
 
     public List<Player> playerList;
@@ -87,26 +86,6 @@ public class MenuManager : MonoBehaviour
         rulesToggled = !rulesToggled;
     }
 
-    //changes timer values by given value
-    //if can't, starts a coroutine to fade timer text color
-    public void ChangeTimerValue(float value)
-    {
-       canChange = GameSettings.ChangeTimerValue(value);
-       if (canChange == false && fading == false)
-       {
-           StartCoroutine(FadeError(textTimer.GetComponent<TMP_Text>()));
-           fading = true;
-       } 
-       textTimer.text = GameSettings.timer.ToString() + " secondes";
-    }
-
-    //toggles panelDisabler and global variable userTimer
-    public void ToggleTimer()
-    { 
-        if(GameSettings.useTimer == true) panelDisabler.SetActive(false);
-        else panelDisabler.SetActive(true);
-        GameSettings.useTimer = !GameSettings.useTimer; 
-    }
 
     //Fades from red to white text color
     IEnumerator FadeError(TMP_Text text)
@@ -187,6 +166,6 @@ public class MenuManager : MonoBehaviour
 
     public void DebugList()
     {
-        SaveData.debuglist();
+        GlobalVariables.debuglist();
     }
 }

@@ -14,6 +14,7 @@ public class QuestionBrowser : MonoBehaviour
     public string publisherMAC;
     public string nickname;
     public string date;
+    public int voteY_N;
     public bool activated;
     public bool downloaded;
 
@@ -22,10 +23,14 @@ public class QuestionBrowser : MonoBehaviour
     public TMP_Text textInfos;
     public GameObject imageDownload;
     public GameObject imageRemove;
+    public Button buttonUpvote;
+    public Button buttonDownvote;
+
+
 
     public Question GetQuestionData()
     {
-        return new Question(this.id, this.label, this.points , this.status,  this.language , this.publisherMAC, this.nickname, this.date, this.activated , this.downloaded);
+        return new Question(this.id, this.label, this.points , this.status,  this.language , this.publisherMAC, this.nickname, this.date, this.voteY_N, this.activated , this.downloaded);
     }
 
     public void SetQuestionData(Question data)
@@ -38,25 +43,60 @@ public class QuestionBrowser : MonoBehaviour
         this.publisherMAC = data.publisherMAC;
         this.nickname = data.nickname;
         this.date = data.date;
+        this.voteY_N = data.voteY_N;
         this.activated = data.activated;
         this.downloaded = data.downloaded;
 
         textQuestion.text = this.label;
 
         if(this.points <= -10)
-            textInfos.text = "Will be deleted soon.";
+            textInfos.text = "Cette question va bientôt être supprimée car elle a un score trop négatif.";
         else
             textInfos.text = this.points + " points";
+
+        if(this.voteY_N == 1)
+        {
+            buttonUpvote.interactable = false;
+            buttonDownvote.interactable = true;
+        }
+        else if(this.voteY_N == -1)
+        {
+            buttonUpvote.interactable = true;
+            buttonDownvote.interactable = false;
+        }
 
     }
 
     public void ChangePoints(int point)
-    {   
-        this.points += point;
+    {      
+        int pointsValue = point;
+        if(this.voteY_N != 0) pointsValue = point*2;
+        if(point == 1)
+        {
+            this.voteY_N = 1;
+            this.points += pointsValue;
+            buttonUpvote.interactable = false;
+            buttonDownvote.interactable = true;
+            ChangePointsInServer();
+        }
+        else if (point == -1)
+        {
+            this.voteY_N = -1;
+            this.points += pointsValue;
+            buttonUpvote.interactable = true;
+            buttonDownvote.interactable = false;
+            ChangePointsInServer();
+        }
+        
         if(this.points > -10)
             textInfos.text = this.points + " points";
         else
-            textInfos.text = textInfos.text = "Will be deleted soon.";
+            textInfos.text = textInfos.text = "Cette question va bientôt être supprimée car elle a un score trop négatif.";
+    }
+
+    public void ChangePointsInServer()
+    {
+        GameObject.Find("MenuManager").GetComponent<NetworkManager>().ChangeQuestionPoints(GetQuestionData());
     }
 
     public void ToggleDownloaded()

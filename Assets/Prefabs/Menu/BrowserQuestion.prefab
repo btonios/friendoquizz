@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 7837165045716626604}
   - component: {fileID: 4989786437171415684}
   m_Layer: 5
-  m_Name: buttonAddPoint
+  m_Name: buttonUpvote
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -603,7 +603,7 @@ GameObject:
   - component: {fileID: 154874406809906711}
   - component: {fileID: 6854896928757673851}
   m_Layer: 5
-  m_Name: buttonRemovePoint
+  m_Name: buttonDownvote
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1017,11 +1017,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93ef75d9faad1034b94bdb7e67016cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questionData: {fileID: 11400000, guid: 2c9205f2b401d834caaf535ea0cafb71, type: 2}
+  id: 0
+  label: 
+  points: 0
+  status: 
+  language: 
+  publisherMAC: 
+  nickname: 
+  date: 
+  voteY_N: 0
+  activated: 0
+  downloaded: 0
   textQuestion: {fileID: 1115623039494248356}
   textInfos: {fileID: 4865315728857547064}
   imageDownload: {fileID: 6670846391119630206}
   imageRemove: {fileID: 578543529616444237}
+  buttonUpvote: {fileID: 4989786437171415684}
+  buttonDownvote: {fileID: 6854896928757673851}
 --- !u!1 &8806474184847034853
 GameObject:
   m_ObjectHideFlags: 0

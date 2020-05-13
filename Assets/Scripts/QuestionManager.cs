@@ -14,6 +14,7 @@ public class QuestionManager : MonoBehaviour
     public string publisherMAC;
     public string nickname;
     public string date;
+    public int voteY_N;
     public bool activated;
     public bool downloaded;
 
@@ -29,7 +30,7 @@ public class QuestionManager : MonoBehaviour
 
     public Question GetQuestionData()
     {
-        return new Question(this.id, this.label, this.points , this.status,  this.language , this.publisherMAC, this.nickname, this.date, this.activated , this.downloaded);
+        return new Question(this.id, this.label, this.points , this.status,  this.language , this.publisherMAC, this.nickname, this.date, this.voteY_N, this.activated , this.downloaded);
     }
 
 

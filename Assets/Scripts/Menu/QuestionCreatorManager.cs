@@ -52,8 +52,4 @@ public class QuestionCreatorManager : MonoBehaviour
         return card;
     }
 
-    public void UploadQuestion()
-    {
-
-    }
 }
