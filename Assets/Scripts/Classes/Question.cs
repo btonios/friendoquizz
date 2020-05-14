@@ -14,12 +14,12 @@ public class Question
     public string nickname;
     public string date;
     public int voteY_N;
-    public bool activated;
+    public bool used;
     public bool downloaded;
 
     public Question (int id = 0, string label = null, int points = 0, string status = null, 
                     string language = null, string publisherMAC = null, string nickname = null, 
-                    string date = null, int voteY_N = 0, bool activated = true, bool downloaded = false)
+                    string date = null, int voteY_N = 0, bool used = true, bool downloaded = false)
     {
         this.id = id;
         this.label = label;
@@ -30,11 +30,25 @@ public class Question
         this.nickname = nickname;
         this.date = date;
         this.voteY_N = voteY_N;
-        this.activated = activated;
+        this.used = used;
         this.downloaded = downloaded;
 
     }
 
+
+    public void setQuestion(Question newQuestion)
+    {
+        this.label = newQuestion.label;
+        this.points = newQuestion.points;
+        this.status = newQuestion.status;
+        this.language = newQuestion.language;
+        this.publisherMAC = newQuestion.publisherMAC;
+        this.nickname = newQuestion.nickname;
+        this.date = newQuestion.date;
+        this.voteY_N = newQuestion.voteY_N;
+        this.used = newQuestion.used;
+        this.downloaded = newQuestion.downloaded;
+    }
     public int getVoteY_N()
     {
         return this.voteY_N;

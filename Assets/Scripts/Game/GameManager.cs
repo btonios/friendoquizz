@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
             card.transform.SetParent(content.transform, false);
         }
 
+
         Next();
     }
 
@@ -77,10 +78,45 @@ public class GameManager : MonoBehaviour
 
         //set default choice for each player
         foreach(Transform card in content.transform) card.gameObject.GetComponent<PlayerManager>().SetDefaultChoice();
+       
+       
+        //get all unused questions
+        List<Question> unusedQuestions = new List<Question>();
+        foreach(Question questionInList in GlobalVariables.questionList.ToList())
+        {
+            if(questionInList.used == false)
+            {
+                unusedQuestions.Add(questionInList);
+            }
+        }
+           
+        
+        //if every questions has been used, reset list
+        if(unusedQuestions.Count == 0)
+        {
+            foreach(Question questionInList in GlobalVariables.questionList)
+            {
+                questionInList.used = false;
+                GlobalVariables.SetQuestion(questionInList);
+            }
+                
+            unusedQuestions = GlobalVariables.questionList;
+            
+        }
 
-        //choose random question from question list
-        int r = Random.Range(1, GlobalVariables.questionList.Count());
-        Question newQuestion = GlobalVariables.GetQuestion(r);
+        //pick random question in unused questions
+        Question newQuestion = unusedQuestions[Random.Range(0, unusedQuestions.Count)];
+
+        //set question to used
+        foreach(Question questionInList in GlobalVariables.questionList.ToList())
+        {
+            if(questionInList.id == newQuestion.id)
+            {
+                questionInList.used = true;
+                GlobalVariables.SetQuestion(questionInList);
+            }
+        }    
+
         question.text =  newQuestion.label;
 
         //update game settings

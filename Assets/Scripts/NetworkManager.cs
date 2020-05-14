@@ -86,6 +86,26 @@ public class NetworkManager : MonoBehaviour
             {
                 Debug.LogError("Question couldn't be sent. See error: " + webRequest.error);
             }
+            else
+            {
+                int id;
+                if(int.TryParse(webRequest.downloadHandler.text, out id))
+                {
+                    foreach(Question qst in GlobalVariables.questionList)
+                    {
+                        if(qst.id == question.id)
+                        {
+                            qst.setId(id);
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogError("ID returned is wrong: See error: " + webRequest.downloadHandler.text);
+
+                }
+                
+            }
         }
     }
 

@@ -15,7 +15,7 @@ public class QuestionBrowser : MonoBehaviour
     public string nickname;
     public string date;
     public int voteY_N;
-    public bool activated;
+    public bool used;
     public bool downloaded;
 
 
@@ -30,7 +30,7 @@ public class QuestionBrowser : MonoBehaviour
 
     public Question GetQuestionData()
     {
-        return new Question(this.id, this.label, this.points , this.status,  this.language , this.publisherMAC, this.nickname, this.date, this.voteY_N, this.activated , this.downloaded);
+        return new Question(this.id, this.label, this.points , this.status,  this.language , this.publisherMAC, this.nickname, this.date, this.voteY_N, this.used , this.downloaded);
     }
 
     public void SetQuestionData(Question data)
@@ -44,7 +44,7 @@ public class QuestionBrowser : MonoBehaviour
         this.nickname = data.nickname;
         this.date = data.date;
         this.voteY_N = data.voteY_N;
-        this.activated = data.activated;
+        this.used = data.used;
         this.downloaded = data.downloaded;
 
         string textNickname = this.nickname;

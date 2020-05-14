@@ -43,9 +43,13 @@ public class GlobalVariables
 
 
     //get question from list with given index
-    public static Question GetQuestion(int index)
-    {
-        Question newQuestion = questionList[index];
+    public static Question GetQuestion(int id)
+    {   
+        Question newQuestion = new Question();
+        foreach(Question question in questionList)
+            if(question.id == id)
+                newQuestion = question;
+        
         return newQuestion;
     }
 
@@ -61,12 +65,12 @@ public class GlobalVariables
         {
             foreach(Question questionInList in questionList)
             {
-                if(questionInList.id == question.id) questionInList.label = question.label;
+                if(questionInList.id == question.id) questionInList.setQuestion(question);
             }
+
         }
         else
         {
-            Debug.Log(question.id);
             questionList.Add(question);
         }
         SaveData.SaveQuestions();
@@ -105,7 +109,7 @@ public class GlobalVariables
         string t = "";
         foreach(Question question in questionList)
         {
-            t += question.id + ", ";
+            t += question.id + "-"+question.used+", ";
         }
         Debug.Log(t);
     }

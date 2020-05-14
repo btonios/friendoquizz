@@ -15,7 +15,7 @@ public class QuestionManager : MonoBehaviour
     public string nickname;
     public string date;
     public int voteY_N;
-    public bool activated;
+    public bool used;
     public bool downloaded;
 
 
@@ -26,11 +26,12 @@ public class QuestionManager : MonoBehaviour
     public void Start()
     {
         buttonUpload.onClick.AddListener(() => GameObject.Find("MenuManager").GetComponent<NetworkManager>().UploadQuestion(GetQuestionData()));
+        buttonUpload.onClick.AddListener(() => UploadQuestion());
     }
 
     public Question GetQuestionData()
     {
-        return new Question(this.id, this.label, this.points , this.status,  this.language , this.publisherMAC, this.nickname, this.date, this.voteY_N, this.activated , this.downloaded);
+        return new Question(this.id, this.label, this.points , this.status,  this.language , this.publisherMAC, this.nickname, this.date, this.voteY_N, this.used , this.downloaded);
     }
 
 
@@ -44,7 +45,7 @@ public class QuestionManager : MonoBehaviour
         this.publisherMAC = data.publisherMAC;
         this.nickname = data.nickname;
         this.date = data.date;
-        this.activated = data.activated;
+        this.used = data.used;
         this.downloaded = data.downloaded;
 
         textQuestion.text = this.label;
@@ -68,6 +69,13 @@ public class QuestionManager : MonoBehaviour
     {
         GlobalVariables.DeleteQuestion(GetQuestionData());
         Destroy(gameObject);
+    }
+
+    public void UploadQuestion()
+    {
+        textQuestion.text = "La question a été envoyée.";
+        buttonUpload.interactable = false;
+        gameObject.GetComponent<CanvasGroup>().alpha = 0.5f;
     }
     
 
