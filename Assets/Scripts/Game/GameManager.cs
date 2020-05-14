@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
         int yesVotes = 0;
         int noVotes = 0;
         bool yesWon = true;
-        List<string> minorityList = new List<string>();
+        List<Player> minorityList = new List<Player>();
 
         //adapt UI
         panelGame.transform.Find("panelAnswer").gameObject.SetActive(true);
@@ -158,22 +158,23 @@ public class GameManager : MonoBehaviour
                 foreach (Player player in GameSettings.playerList)
                 {
                     if(player.playerAnswer == yesWon) player.playerPoints++;
-                        else minorityList.Add(player.playerName);
+                        else minorityList.Add(player);
                 }
 
                 //construct sentences depending of minority number and position in list
-                foreach(string name in minorityList)
+                foreach(Player player in minorityList)
                 {
-                    if (name == minorityList.Last() && minorityList.Count() == 1) text += name + " est le seul perdant! Dommage!";
-                    else if(name == minorityList.Last()) text += "et " + name + " ont perdu!";
-                    else if (name == minorityList[minorityList.Count()-2]) text += name + " ";
-                    else text += name + ", ";
+                    Debug.Log(minorityList[minorityList.Count()-2].playerId);
+                    if (player.playerId == minorityList.Last().playerId && minorityList.Count() == 1) text += player.playerName + " est le seul perdant! Deux gorgées!";
+                    else if(player.playerId == minorityList.Last().playerId) text += "et " + player.playerName + " boivent une gorgée!";
+                    else if (player.playerId == minorityList[minorityList.Count()-2].playerId) text += player.playerName + " ";
+                    else text += player.playerName + ", ";
                 }
             }
         }
         else
         {
-            text = "Égalité, tout le monde est perdant!";
+            text = "Égalité, tout le monde a le droit à deux gorgées!";
         } 
 
         answer.text = text;
