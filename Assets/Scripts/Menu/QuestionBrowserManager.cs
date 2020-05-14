@@ -6,7 +6,7 @@ using System.Linq;
 
 public class QuestionBrowserManager : MonoBehaviour
 {
-    public GameObject content;
+    public Transform content;
     public GameObject panelQuestion;
     public List<Question> browserQuestionList = new List<Question>();
 
@@ -17,41 +17,63 @@ public class QuestionBrowserManager : MonoBehaviour
         NetworkManager = GetComponent<NetworkManager>();
     }
     
-    public void SearchQuestions()
+    public void SearchQuestions(string sort)
     {
-        NetworkManager.GetBrowserQuestions();
+        NetworkManager.GetBrowserQuestions(sort);
     }
 
     public void ShowQuestions()
     {
-        foreach(Question question in browserQuestionList)
+        DeleteQuestionCards();
+        if(browserQuestionList.Count > 0)
         {
-            GameObject card = CreateQuestionCard();
-        
-            if(GlobalVariables.questionList.Any(q=>q.id == question.id))
-            {
-                card.GetComponent<QuestionBrowser>().downloaded = true;
+            if(GameObject.Find("textContentInfos"))
+                GameObject.Find("textContentInfos").SetActive(false);
 
-                card.GetComponent<Image>().color = new Color32(30, 30, 30, 150);
-                card.transform.Find("buttonDownload").Find("imageDownload").gameObject.SetActive(false);
-                card.transform.Find("buttonDownload").Find("imageRemove").gameObject.SetActive(true);
-            }
-            else
+            foreach(Question question in browserQuestionList)
             {
-                
-                card.GetComponent<QuestionBrowser>().downloaded = false;
-                card.transform.Find("buttonDownload").Find("imageRemove").gameObject.SetActive(false);
-            }
+                GameObject card = CreateQuestionCard();
+            
+                if(GlobalVariables.questionList.Any(q=>q.id == question.id))
+                {
+                    card.GetComponent<QuestionBrowser>().downloaded = true;
 
-            card.GetComponent<QuestionBrowser>().SetQuestionData(question);
+                    card.GetComponent<Image>().color = new Color32(30, 30, 30, 150);
+                    card.transform.Find("buttonDownload").Find("imageDownload").gameObject.SetActive(false);
+                    card.transform.Find("buttonDownload").Find("imageRemove").gameObject.SetActive(true);
+                }
+                else
+                {
+                    
+                    card.GetComponent<QuestionBrowser>().downloaded = false;
+                    card.transform.Find("buttonDownload").Find("imageRemove").gameObject.SetActive(false);
+                }
+
+                card.GetComponent<QuestionBrowser>().SetQuestionData(question);
+            }
         }
+        else
+        {
+            GameObject.Find("textContentInfos").SetActive(true);
+        }
+        
     }
 
     public GameObject CreateQuestionCard()
     {
         GameObject card = Instantiate(panelQuestion) as GameObject; 
-        card.transform.SetParent(content.transform, false);
+        card.transform.SetParent(content, false);
         return card;
     }
-    
+
+    void DeleteQuestionCards()
+    {
+        if(content.childCount > 0)
+        {
+            foreach (Transform card in content) 
+            {
+                Destroy(card.gameObject);
+            } 
+        }
+    }
 }

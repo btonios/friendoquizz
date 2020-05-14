@@ -149,17 +149,20 @@ public class MenuManager : MonoBehaviour
         {
             panelMainMenu.SetActive(false);
             panelQuestionBrowser.SetActive(true);
-            GetComponent<QuestionBrowserManager>().SearchQuestions();
+            GetComponent<QuestionBrowserManager>().SearchQuestions("every");
         } 
         else
         {
             panelMainMenu.SetActive(true);
             panelQuestionBrowser.SetActive(false);
-
-            foreach (Transform card in content) 
+            if(content.childCount > 0)
             {
-                Destroy(card.gameObject);
-            }      
+                foreach (Transform card in content) 
+                {
+                    Destroy(card.gameObject);
+                } 
+            }
+                 
         } 
         qbToggled = !qbToggled;
     }

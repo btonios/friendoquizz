@@ -47,12 +47,14 @@ public class QuestionBrowser : MonoBehaviour
         this.activated = data.activated;
         this.downloaded = data.downloaded;
 
-        textQuestion.text = this.label;
+        string textNickname = this.nickname;
+        string textPoints = this.points + " points";
+        string textDate = System.DateTime.ParseExact(this.date, "yyyy-MM-dd", null).ToString("dd/MM/yyyy");
 
-        if(this.points <= -10)
-            textInfos.text = "Cette question va bientôt être supprimée car elle a un score trop négatif.";
-        else
-            textInfos.text = this.points + " points";
+
+        textQuestion.text = this.label;
+        
+        SetInfosText();
 
         if(this.voteY_N == 1)
         {
@@ -69,6 +71,8 @@ public class QuestionBrowser : MonoBehaviour
 
     public void ChangePoints(int point)
     {      
+        
+
         int pointsValue = point;
         if(this.voteY_N != 0) pointsValue = point*2;
         if(point == 1)
@@ -88,12 +92,23 @@ public class QuestionBrowser : MonoBehaviour
             ChangePointsInServer();
         }
         
-        if(this.points > -10)
-            textInfos.text = this.points + " points";
-        else
-            textInfos.text = textInfos.text = "Cette question va bientôt être supprimée car elle a un score trop négatif.";
+        SetInfosText();
     }
 
+    void SetInfosText()
+    {
+        if(this.points > -10)
+        {
+            string textNickname = this.nickname;
+            string textPoints = this.points + " points";
+            string textDate = System.DateTime.ParseExact(this.date, "yyyy-MM-dd", null).ToString("dd/MM/yyyy");
+            textInfos.text = textNickname+" • "+textPoints+" • le "+textDate;
+        }
+        else
+        {
+            textInfos.text = textInfos.text = "Cette question va bientôt être supprimée car elle a un score trop négatif.";
+        }
+    }
     public void ChangePointsInServer()
     {
         GameObject.Find("MenuManager").GetComponent<NetworkManager>().ChangeQuestionPoints(GetQuestionData());

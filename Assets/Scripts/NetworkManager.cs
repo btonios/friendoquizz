@@ -28,15 +28,16 @@ public class NetworkManager : MonoBehaviour
         return entireURL;
     }
 
-    public void GetBrowserQuestions()
+    public void GetBrowserQuestions(string sort)
     {
-        StartCoroutine(GetBrowserQuestions(PHPFile("browseQuestions")));
+        StartCoroutine(GetBrowserQuestions(PHPFile("browseQuestions"), sort));
     } 
 
-    IEnumerator GetBrowserQuestions(string url)
+    IEnumerator GetBrowserQuestions(string url, string sort)
     {
         WWWForm form = new WWWForm();
         form.AddField("userMacAddress", GlobalVariables.MAC_ADDRESS);
+        form.AddField("sort", sort);
 
         using (UnityWebRequest webRequest  = UnityWebRequest.Post(url, form))
         {
@@ -105,14 +106,10 @@ public class NetworkManager : MonoBehaviour
 
         using (UnityWebRequest webRequest  = UnityWebRequest.Post(url, form))
         {
-             yield return webRequest.SendWebRequest();
+            yield return webRequest.SendWebRequest();
             if (webRequest.isNetworkError)
             {
                 Debug.LogError("Question couldn't be sent. See error: " + webRequest.error);
-            }
-            else
-            {
-                Debug.Log(webRequest.downloadHandler.text);
             }
         }
     }

@@ -64,10 +64,21 @@ public class QuestionCreatorManager : MonoBehaviour
 
     public void OpenKeyboard()
     {
-        GlobalVariables.NICKNAME = "AAAAAAAA";
-        textNickname.text = GlobalVariables.NICKNAME;
-        SaveData.SaveNickname();
-        keyboard = TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default);
+        #if UNITY_ANDROID
+            keyboard = TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default);
+        #endif
+
+        #if UNITY_EDITOR
+        string glyphs= "abcdefghijklmnopqrstuvwxyz0123456789"; 
+        string rnd = "";
+            for(int i=0; i<10; i++)
+            {
+                rnd += glyphs[Random.Range(0, glyphs.Length)];
+            }
+            GlobalVariables.NICKNAME = rnd;
+            textNickname.text = GlobalVariables.NICKNAME; 
+            SaveData.SaveNickname();
+        #endif
     }
 
     void Update()
@@ -78,6 +89,7 @@ public class QuestionCreatorManager : MonoBehaviour
             {
                 GlobalVariables.NICKNAME = keyboard.text;
                 textNickname.text = GlobalVariables.NICKNAME; 
+                SaveData.SaveNickname();
             }
         }
     }   

@@ -54,7 +54,7 @@ MonoBehaviour:
   panelSettings: {fileID: 0}
   panelQuestionCreator: {fileID: 0}
   panelMainMenu: {fileID: 0}
-  textTimer: {fileID: 0}
+  panelQuestionBrowser: {fileID: 0}
   textQN: {fileID: 0}
   playerList: []
   rulesToggled: 0
@@ -75,8 +75,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   content: {fileID: 0}
-  panelQuestion: {fileID: 8150960362058659418, guid: 3625c05794b256749b5e609f2ca87a8b,
+  panelQuestion: {fileID: 8150960362058659418, guid: dca58c87169b59f4aad5061a18f28fab,
     type: 3}
+  textNickname: {fileID: 0}
 --- !u!114 &69487257
 MonoBehaviour:
   m_ObjectHideFlags: 0
