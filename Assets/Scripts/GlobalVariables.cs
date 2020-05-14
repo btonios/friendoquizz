@@ -9,6 +9,7 @@ public class GlobalVariables
     public static string NICKNAME;
     
     public static List<Question> questionList = new List<Question>();
+    public static List<string> userInfos = new List<string>();
 
     public static string Md5(string strToEncrypt)
     {

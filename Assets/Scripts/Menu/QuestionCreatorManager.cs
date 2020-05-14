@@ -9,6 +9,15 @@ public class QuestionCreatorManager : MonoBehaviour
     public GameObject content;
     public GameObject panelQuestion;
 
+    public TMP_Text textNickname;
+
+    TouchScreenKeyboard keyboard;
+
+    void Start()
+    {
+        textNickname.text = SaveData.LoadNickname();
+    }
+
     public int GetLastCustomId()
     {
         int lastId = 0;
@@ -52,4 +61,24 @@ public class QuestionCreatorManager : MonoBehaviour
         return card;
     }
 
+
+    public void OpenKeyboard()
+    {
+        GlobalVariables.NICKNAME = "AAAAAAAA";
+        textNickname.text = GlobalVariables.NICKNAME;
+        SaveData.SaveNickname();
+        keyboard = TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default);
+    }
+
+    void Update()
+    {
+        if(TouchScreenKeyboard.visible == false && keyboard != null)
+        {
+            if(keyboard.status == TouchScreenKeyboard.Status.Done)
+            {
+                GlobalVariables.NICKNAME = keyboard.text;
+                textNickname.text = GlobalVariables.NICKNAME; 
+            }
+        }
+    }   
 }
