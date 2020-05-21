@@ -8,7 +8,7 @@ using System.Linq;
 
 public class NetworkManager : MonoBehaviour
 {
-    public const string URL = "127.0.0.1/friendoquizz/";
+    public const string URL = "127.0.0.1/festty/requests/";
 
     void Start()
     {
@@ -34,7 +34,7 @@ public class NetworkManager : MonoBehaviour
     } 
 
     IEnumerator GetBrowserQuestions(string url, string sort)
-    {
+    {   
         WWWForm form = new WWWForm();
         form.AddField("userMacAddress", GlobalVariables.MAC_ADDRESS);
         form.AddField("sort", sort);
@@ -88,9 +88,11 @@ public class NetworkManager : MonoBehaviour
             }
             else
             {
+                Debug.Log(webRequest.downloadHandler.text);
                 int id;
                 if(int.TryParse(webRequest.downloadHandler.text, out id))
                 {
+                    Debug.Log("id: " + webRequest.downloadHandler.text);
                     foreach(Question qst in GlobalVariables.questionList)
                     {
                         if(qst.id == question.id)
@@ -102,6 +104,7 @@ public class NetworkManager : MonoBehaviour
                 else
                 {
                     Debug.LogError("ID returned is wrong: See error: " + webRequest.downloadHandler.text);
+                    GlobalVariables.DeleteQuestion(question);
 
                 }
                 
@@ -131,11 +134,40 @@ public class NetworkManager : MonoBehaviour
             {
                 Debug.LogError("Question couldn't be sent. See error: " + webRequest.error);
             }
+            else
+            {
+                Debug.Log(webRequest.downloadHandler.text);
+            }
         }
     }
 
     
+    public void DoReport(Question question)
+    {
+        StartCoroutine(PostDoReport(PHPFile("doReport"), question));
+    }
 
+    IEnumerator PostDoReport(string url, Question question)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("questionId", question.id);
+        form.AddField("userMacAddress", GlobalVariables.MAC_ADDRESS);
+        form.AddField("publisherMAC", question.publisherMAC);
+
+        using (UnityWebRequest webRequest  = UnityWebRequest.Post(url, form))
+        {
+            yield return webRequest.SendWebRequest();
+            if (webRequest.isNetworkError)
+            {
+                Debug.LogError("Couldn't report. See error: " + webRequest.error);
+            }
+            else
+            {
+                Debug.Log(webRequest.downloadHandler.text);
+
+            }
+        }
+    }
 
 
 }

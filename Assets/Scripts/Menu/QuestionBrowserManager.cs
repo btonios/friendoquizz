@@ -33,23 +33,7 @@ public class QuestionBrowserManager : MonoBehaviour
             foreach(Question question in browserQuestionList)
             {
                 GameObject card = CreateQuestionCard();
-            
-                if(GlobalVariables.questionList.Any(q=>q.id == question.id))
-                {
-                    card.GetComponent<QuestionBrowser>().downloaded = true;
-
-                    card.GetComponent<Image>().color = new Color32(30, 30, 30, 150);
-                    card.transform.Find("buttonDownload").Find("imageDownload").gameObject.SetActive(false);
-                    card.transform.Find("buttonDownload").Find("imageRemove").gameObject.SetActive(true);
-                }
-                else
-                {
-                    
-                    card.GetComponent<QuestionBrowser>().downloaded = false;
-                    card.transform.Find("buttonDownload").Find("imageRemove").gameObject.SetActive(false);
-                }
-
-                card.GetComponent<QuestionBrowser>().SetQuestionData(question);
+                card.GetComponent<QuestionBrowser>().SetQuestionData(question);               
             }
         }
         else

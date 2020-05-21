@@ -14,12 +14,15 @@ public class Question
     public string nickname;
     public string date;
     public int voteY_N;
+    public bool reported;
+
     public bool used;
     public bool downloaded;
 
+
     public Question (int id = 0, string label = null, int points = 0, string status = null, 
                     string language = null, string publisherMAC = null, string nickname = null, 
-                    string date = null, int voteY_N = 0, bool used = true, bool downloaded = false)
+                    string date = null, int voteY_N = 0, bool reported = false, bool used = true, bool downloaded = false)
     {
         this.id = id;
         this.label = label;
@@ -30,6 +33,8 @@ public class Question
         this.nickname = nickname;
         this.date = date;
         this.voteY_N = voteY_N;
+        this.reported = reported;
+
         this.used = used;
         this.downloaded = downloaded;
 

@@ -49,6 +49,7 @@ public class QuestionManager : MonoBehaviour
         this.downloaded = data.downloaded;
 
         textQuestion.text = this.label;
+        
     }
 
     public void StartEditQuestion()

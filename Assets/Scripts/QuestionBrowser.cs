@@ -15,6 +15,8 @@ public class QuestionBrowser : MonoBehaviour
     public string nickname;
     public string date;
     public int voteY_N;
+    public bool reported;
+
     public bool used;
     public bool downloaded;
 
@@ -25,12 +27,13 @@ public class QuestionBrowser : MonoBehaviour
     public GameObject imageRemove;
     public Button buttonUpvote;
     public Button buttonDownvote;
+    public Button buttonReport;
 
 
 
     public Question GetQuestionData()
     {
-        return new Question(this.id, this.label, this.points , this.status,  this.language , this.publisherMAC, this.nickname, this.date, this.voteY_N, this.used , this.downloaded);
+        return new Question(this.id, this.label, this.points , this.status,  this.language , this.publisherMAC, this.nickname, this.date, this.voteY_N, this.reported, this.used , this.downloaded);
     }
 
     public void SetQuestionData(Question data)
@@ -44,6 +47,8 @@ public class QuestionBrowser : MonoBehaviour
         this.nickname = data.nickname;
         this.date = data.date;
         this.voteY_N = data.voteY_N;
+        this.reported = data.reported;
+
         this.used = data.used;
         this.downloaded = data.downloaded;
 
@@ -66,6 +71,27 @@ public class QuestionBrowser : MonoBehaviour
             buttonUpvote.interactable = true;
             buttonDownvote.interactable = false;
         }
+
+        if(this.reported == true)
+            buttonReport.interactable = false;
+
+
+        //check if question is already downloaded
+        foreach(Question question in GlobalVariables.questionList)
+        {
+            if(question.id == this.id)
+            {
+                this.downloaded = true;
+                SetIsDownloaded(true);
+            }
+            else
+            {
+                this.downloaded = false;
+                SetIsDownloaded(false);
+
+            }
+        }
+
 
     }
 
@@ -95,6 +121,12 @@ public class QuestionBrowser : MonoBehaviour
         SetInfosText();
     }
 
+    public void DoReport()
+    {
+        buttonReport.interactable = false;
+        GameObject.Find("MenuManager").GetComponent<NetworkManager>().DoReport(GetQuestionData());
+    }
+
     void SetInfosText()
     {
         if(this.points > -10)
@@ -116,12 +148,26 @@ public class QuestionBrowser : MonoBehaviour
 
     public void ToggleDownloaded()
     {
-        if(this.downloaded == false)
+        if(this.downloaded == true)
+        {
+            SetIsDownloaded(false);
+            this.downloaded = false;
+        }
+        else
+        {
+            SetIsDownloaded(true);
+            this.downloaded = true;
+        }
+    }
+
+    public void SetIsDownloaded(bool dl)
+    {
+        if(dl == true)
         {
             GlobalVariables.SetQuestion(GetQuestionData());
             GetComponent<Image>().color = new Color32(30, 30, 30, 150);
             imageRemove.SetActive(true);
-            imageDownload.SetActive(false);
+            imageDownload.SetActive(false); 
         }
         else
         {
@@ -130,9 +176,6 @@ public class QuestionBrowser : MonoBehaviour
             imageRemove.SetActive(false);
             imageDownload.SetActive(true);
         }
-
-        this.downloaded = !this.downloaded;
-
     }
 
     
