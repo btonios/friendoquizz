@@ -27,7 +27,6 @@ public class PlayerManager : MonoBehaviour
         {
             if(GameSettings.playerList[i].playerId==this.playerId)
             {
-                GameObject.Find("Content").GetComponent<RectTransform>().offsetMax -= new Vector2(GameObject.Find("Content").GetComponent<RectTransform>().rect.width + 60, 0);
                 GameSettings.playerNumber--;
                 GameSettings.playerList.RemoveAt(i);
             }

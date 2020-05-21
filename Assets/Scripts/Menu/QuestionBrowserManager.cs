@@ -33,7 +33,7 @@ public class QuestionBrowserManager : MonoBehaviour
             foreach(Question question in browserQuestionList)
             {
                 GameObject card = CreateQuestionCard();
-                card.GetComponent<QuestionBrowser>().SetQuestionData(question);               
+                card.GetComponent<QuestionBrowser>().SetQuestionData(question);                              
             }
         }
         else

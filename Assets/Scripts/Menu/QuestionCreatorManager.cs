@@ -8,7 +8,7 @@ public class QuestionCreatorManager : MonoBehaviour
     
     public GameObject content;
     public GameObject panelQuestion;
-
+    
     public TMP_Text textNickname;
 
     TouchScreenKeyboard keyboard;

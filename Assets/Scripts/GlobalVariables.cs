@@ -7,6 +7,7 @@ public class GlobalVariables
 {
     public static string MAC_ADDRESS;
     public static string NICKNAME;
+    public static string APP_VERSION = "1.0";
     
     public static List<Question> questionList = new List<Question>();
     public static List<string> userInfos = new List<string>();

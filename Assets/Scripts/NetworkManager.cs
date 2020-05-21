@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Json;
 using System.Linq;
+using TMPro;
 
 public class NetworkManager : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class NetworkManager : MonoBehaviour
     void Start()
     {
         GlobalVariables.SetMACAddress();
-        GlobalVariables.NICKNAME = "anonymous";
+        GlobalVariables.NICKNAME = SaveData.LoadNickname();
     }
 
     string fixJson(string value)
@@ -67,47 +68,47 @@ public class NetworkManager : MonoBehaviour
 
 
 
-    public void UploadQuestion(Question question)
+    public void UploadQuestion(GameObject questionObject)
     {
-        StartCoroutine(PostBrowserQuestion(PHPFile("uploadQuestion"), question));
+        StartCoroutine(PostBrowserQuestion(PHPFile("uploadQuestion"), questionObject));
     }
 
-    IEnumerator PostBrowserQuestion(string url, Question question)
+    IEnumerator PostBrowserQuestion(string url, GameObject questionObject)
     {
+        Question question = questionObject.GetComponent<QuestionManager>().GetQuestionData();
         WWWForm form = new WWWForm();
         form.AddField("label", question.label);
         form.AddField("userMacAddress", GlobalVariables.MAC_ADDRESS);
         form.AddField("nickname", GlobalVariables.NICKNAME);
 
-        using (UnityWebRequest webRequest  = UnityWebRequest.Post(url, form))
+        using (UnityWebRequest webRequest = UnityWebRequest.Post(url, form))
         {
             yield return webRequest.SendWebRequest();
             if (webRequest.isNetworkError)
             {
+                questionObject.GetComponent<QuestionManager>().SetTextInfo(false);
                 Debug.LogError("Question couldn't be sent. See error: " + webRequest.error);
             }
             else
             {
-                Debug.Log(webRequest.downloadHandler.text);
                 int id;
                 if(int.TryParse(webRequest.downloadHandler.text, out id))
                 {
-                    Debug.Log("id: " + webRequest.downloadHandler.text);
                     foreach(Question qst in GlobalVariables.questionList)
                     {
                         if(qst.id == question.id)
                         {
                             qst.setId(id);
+                            questionObject.GetComponent<QuestionManager>().SetTextInfo(true);
+                            SaveData.SaveQuestions();
                         }
                     }
                 }
                 else
                 {
-                    Debug.LogError("ID returned is wrong: See error: " + webRequest.downloadHandler.text);
-                    GlobalVariables.DeleteQuestion(question);
-
-                }
-                
+                    questionObject.GetComponent<QuestionManager>().SetTextInfo(false);
+                    questionObject.transform.Find("textInfo").GetComponent<TMP_Text>().text = "Erreur lors de l'envoi de la question.";
+                }                
             }
         }
     }

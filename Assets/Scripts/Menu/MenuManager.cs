@@ -12,15 +12,18 @@ public class MenuManager : MonoBehaviour
     public GameObject content;
     public GameObject playerCard;
     public GameObject panelRules;
-    public GameObject panelDisabler;
     public GameObject panelSettings;
     public GameObject panelQuestionCreator;
     public GameObject panelMainMenu;
     public GameObject panelQuestionBrowser;
+    public GameObject panelInfos;
+
+    public TMP_Text textInfosVersion;
     public TMP_Text textQN;
 
     public List<Player> playerList;
     public bool rulesToggled;
+    public bool infosToggled;
     public bool settingsToggled;
     public bool qcToggled;
     public bool qbToggled;
@@ -32,9 +35,11 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
         rulesToggled = true;
+        infosToggled = true;
         settingsToggled = true;
         qcToggled = true;
         qbToggled = true;
+        textInfosVersion.text = "Version: " + GlobalVariables.APP_VERSION;
     
         GameSettings.gameStatus = "menu";
         List<Player> playerList = new List<Player>(); 
@@ -53,7 +58,6 @@ public class MenuManager : MonoBehaviour
     {
         //add card to scene and add 130 to bottom to make scrolling work correctly
         GameObject card = Instantiate(playerCard) as GameObject; 
-        content.GetComponent<RectTransform>().offsetMax += new Vector2(card.GetComponent<RectTransform>().rect.width + 60, 0);
 
         card.transform.SetParent(content.transform, false);
 
@@ -84,6 +88,14 @@ public class MenuManager : MonoBehaviour
         if(rulesToggled == true) panelRules.SetActive(true);
         else panelRules.SetActive(false);
         rulesToggled = !rulesToggled;
+    }
+
+    //toggle function that either sets infos panel active or false
+    public void ToggleInfos()
+    {
+        if(infosToggled == true) panelInfos.SetActive(true);
+        else panelInfos.SetActive(false);
+        infosToggled = !infosToggled;
     }
 
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 using TMPro;
 
 public class QuestionBrowser : MonoBehaviour
@@ -19,7 +20,6 @@ public class QuestionBrowser : MonoBehaviour
 
     public bool used;
     public bool downloaded;
-
 
     public TMP_Text textQuestion;
     public TMP_Text textInfos;
@@ -77,21 +77,10 @@ public class QuestionBrowser : MonoBehaviour
 
 
         //check if question is already downloaded
-        foreach(Question question in GlobalVariables.questionList)
-        {
-            if(question.id == this.id)
-            {
-                this.downloaded = true;
-                SetIsDownloaded(true);
-            }
-            else
-            {
-                this.downloaded = false;
-                SetIsDownloaded(false);
-
-            }
-        }
-
+        if(GlobalVariables.questionList.Any(q => q.id == id))
+            SetIsDownloaded(true);
+        else
+            SetIsDownloaded(false); 
 
     }
 
@@ -150,13 +139,13 @@ public class QuestionBrowser : MonoBehaviour
     {
         if(this.downloaded == true)
         {
+            GlobalVariables.SetQuestion(GetQuestionData());
             SetIsDownloaded(false);
-            this.downloaded = false;
         }
         else
-        {
+        {            
+            GlobalVariables.DeleteQuestion(GetQuestionData());
             SetIsDownloaded(true);
-            this.downloaded = true;
         }
     }
 
@@ -164,18 +153,18 @@ public class QuestionBrowser : MonoBehaviour
     {
         if(dl == true)
         {
-            GlobalVariables.SetQuestion(GetQuestionData());
             GetComponent<Image>().color = new Color32(30, 30, 30, 150);
             imageRemove.SetActive(true);
             imageDownload.SetActive(false); 
         }
         else
         {
-            GlobalVariables.DeleteQuestion(GetQuestionData());
             GetComponent<Image>().color = new Color32(0, 0, 0, 150);
             imageRemove.SetActive(false);
             imageDownload.SetActive(true);
         }
+        
+        this.downloaded = dl;
     }
 
     
