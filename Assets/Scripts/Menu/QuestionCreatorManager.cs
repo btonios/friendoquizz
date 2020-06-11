@@ -8,10 +8,13 @@ public class QuestionCreatorManager : MonoBehaviour
     
     public GameObject content;
     public GameObject panelQuestion;
+
     
-    public TMP_Text textNickname;
+    public TMP_InputField textNickname;
+    public TMP_InputField textNewQuestion;
 
     TouchScreenKeyboard keyboard;
+
 
     void Start()
     {
@@ -40,18 +43,19 @@ public class QuestionCreatorManager : MonoBehaviour
 
     public void CreateQuestion()
     {
-        
         //add card to scene 
         GameObject card = CreateQuestionCard();
 
         //add question to local database
-        Question question = new Question(GetLastCustomId()-1, "", 0, "custom", "french");
+        Question question = new Question(GetLastCustomId()-1, textNewQuestion.text, 0, "custom", GlobalVariables.LANGUAGE);
+        GlobalVariables.SetQuestion(question);
 
         //set created question attributes
         card.GetComponent<QuestionManager>().SetQuestionData(question);
+
         
-        //open keyboard and to type question
-        card.GetComponent<QuestionManager>().StartEditQuestion();   
+        //set inputfield new question to nothing
+        textNewQuestion.text = "";
     }
 
     public GameObject CreateQuestionCard()
@@ -61,36 +65,8 @@ public class QuestionCreatorManager : MonoBehaviour
         return card;
     }
 
-
-    public void OpenKeyboard()
+    public void EditNickname()
     {
-        #if UNITY_ANDROID
-            keyboard = TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default);
-        #endif
-
-        #if UNITY_EDITOR
-        string glyphs= "abcdefghijklmnopqrstuvwxyz0123456789"; 
-        string rnd = "";
-            for(int i=0; i<10; i++)
-            {
-                rnd += glyphs[Random.Range(0, glyphs.Length)];
-            }
-            GlobalVariables.NICKNAME = rnd;
-            textNickname.text = GlobalVariables.NICKNAME; 
-            SaveData.SaveNickname();
-        #endif
+        GlobalVariables.SetNickname(textNickname.text);
     }
-
-    void Update()
-    {
-        if(TouchScreenKeyboard.visible == false && keyboard != null)
-        {
-            if(keyboard.status == TouchScreenKeyboard.Status.Done)
-            {
-                GlobalVariables.NICKNAME = keyboard.text;
-                textNickname.text = GlobalVariables.NICKNAME; 
-                SaveData.SaveNickname();
-            }
-        }
-    }   
 }

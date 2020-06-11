@@ -7,8 +7,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveData
 {
-    public static string QUESTIONS_DATA_PATH = Application.persistentDataPath + "/questions.data";
-    public static string NICKNAME_DATA_PATH = Application.persistentDataPath + "/nickname.data";
+    public static string QUESTIONS_DATA_PATH = Path.Combine(Application.persistentDataPath,"questions.data");
+    public static string NICKNAME_DATA_PATH = Path.Combine(Application.persistentDataPath,"nickname.data");
+    public static string GAMESETTINGS_DATA_PATH = Path.Combine(Application.persistentDataPath,"gamesettings.data");
     
 
     //Save question list in questions.data file 
@@ -63,12 +64,14 @@ public static class SaveData
     {        
         string data = "anonymous";
 
-        if(File.Exists(QUESTIONS_DATA_PATH))
+        if(File.Exists(NICKNAME_DATA_PATH))
         {
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(NICKNAME_DATA_PATH, FileMode.Open);
 
-            data = formatter.Deserialize(stream).ToString();
+            if(stream.Length != 0)
+                data = formatter.Deserialize(stream).ToString();
+                
             stream.Close();
         }
         
@@ -76,6 +79,47 @@ public static class SaveData
         else 
         {
             Debug.LogError("ALERT: nickname.data FILE NOT FOUND");
+        }
+
+        return data;
+    }
+
+
+
+
+
+    //Save game settings in gamesettings.data file
+    public static void SaveGameSettings()
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        FileStream stream = new FileStream(GAMESETTINGS_DATA_PATH, FileMode.Create);
+
+        Dictionary<string, dynamic> data = GameSettings.GetActualSettings();
+
+        formatter.Serialize(stream, data);
+        stream.Close();
+    }
+
+    //Load user nickname from gamesettings.data file
+    public static Dictionary<string, dynamic> LoadGameSettings()
+    {        
+        Dictionary<string, dynamic> data = null;
+
+        if(File.Exists(GAMESETTINGS_DATA_PATH))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(GAMESETTINGS_DATA_PATH, FileMode.Open);
+
+            if(stream.Length != 0)
+                data = formatter.Deserialize(stream) as Dictionary<string, dynamic>;
+                
+            stream.Close();
+        }
+        
+        //if no nickname found in nickname.data, alert
+        else 
+        {
+            Debug.LogError("ALERT: gamesettings.data FILE NOT FOUND");
         }
 
         return data;

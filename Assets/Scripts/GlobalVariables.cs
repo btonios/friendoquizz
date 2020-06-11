@@ -8,33 +8,17 @@ public class GlobalVariables
     public static string MAC_ADDRESS;
     public static string NICKNAME;
     public static string APP_VERSION = "1.0";
+    public static string LANGUAGE = "french";
+    public static bool firstOpening = true;
     
     public static List<Question> questionList = new List<Question>();
     public static List<string> userInfos = new List<string>();
 
-    public static string Md5(string strToEncrypt)
-    {
-        System.Text.UTF8Encoding ue = new System.Text.UTF8Encoding();
-        byte[] bytes = ue.GetBytes(strToEncrypt);
     
-        // encrypt bytes
-        System.Security.Cryptography.MD5CryptoServiceProvider md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
-        byte[] hashBytes = md5.ComputeHash(bytes);
-    
-        // Convert the encrypted bytes back to a string (base 16)
-        string hashString = "";
-    
-        for (int i = 0; i < hashBytes.Length; i++)
-        {
-            hashString += System.Convert.ToString(hashBytes[i], 16).PadLeft(2, '0');
-        }
-    
-        return hashString.PadLeft(32, '0');
-    }
-
+    //gives to MAC_ADDRESS md5 hashed mac address
     public static void SetMACAddress()
     {
-        MAC_ADDRESS = Md5(SystemInfo.deviceUniqueIdentifier);
+        MAC_ADDRESS = SystemInfo.deviceUniqueIdentifier;
     }
 
     public void SetDefaultSettings()
@@ -92,15 +76,42 @@ public class GlobalVariables
         return isDeleted;
     }
 
+    public static void SetNickname(string nick)
+    {
+        NICKNAME = nick;
+        SaveData.SaveNickname();
+    }
+
     //DEBUG
     public static void setList()
     {
-        questionList.Add(new Question(0, "As-tu déjà fumé?"));
-        questionList.Add(new Question(1, "Aimes-tu lire des livres?"));
-        questionList.Add(new Question(2, "As-tu déjà embarqué dans un avion?"));
-        questionList.Add(new Question(3, "As-tu un prénom composé?"));
-        questionList.Add(new Question(4, "T'es-tu déjà fait piquer par une guêpe?"));
-        questionList.Add(new Question(5, "As-tu déjà été bourré?"));
+        questionList.Add(new Question(0,"Est-ce que c'est une question ?"));
+        questionList.Add(new Question(0,"As-tu déjà été bourré ?"));
+        questionList.Add(new Question(0,"Es-tu en couple ?"));
+        questionList.Add(new Question(0,"Es-tu célibataire ?"));
+        questionList.Add(new Question(0,"As-tu une teinture ?"));
+        questionList.Add(new Question(0,"As-tu un tatouage ?"));
+        questionList.Add(new Question(0,"As-tu déjà voyagé en dehors de ton pays ?"));
+        questionList.Add(new Question(0,"As-tu déjà vomi à cause de l'alcool ?"));
+        questionList.Add(new Question(0,"As-tu un Samsung ?"));
+        questionList.Add(new Question(0,"As-tu un Iphone ?"));
+        questionList.Add(new Question(0,"T'es-tu déjà rasé(e) la tête ?"));
+        questionList.Add(new Question(0,"As-tu déjà contacté un marabout ?"));
+        questionList.Add(new Question(0,"T'es-tu déjà endormi au cinéma ?"));
+        questionList.Add(new Question(0,"As-tu déjà mangé dans un restaurant horrible ?"));
+        questionList.Add(new Question(0,"As-tu les yeux marrons ?"));
+        questionList.Add(new Question(0,"As-tu les cheveux bruns/chatains ?"));
+        questionList.Add(new Question(0,"As-tu les cheveux blonds ?"));
+        questionList.Add(new Question(0,"As-tu les cheveux roux ?"));
+        questionList.Add(new Question(0,"As-tu une faiblesse pour le rhum ?"));
+        questionList.Add(new Question(0,"Aimes-tu la Vodka ?"));
+        questionList.Add(new Question(0,"Aimes-tu le vin blanc ?"));
+        questionList.Add(new Question(0,"Aimes-tu le vin rouge ?"));
+        questionList.Add(new Question(0,"Aimes-tu le champagne ?"));
+        questionList.Add(new Question(0,"Es-tu végétarien(ne) ?"));
+        questionList.Add(new Question(0,"T'es-tu déjà teint les cheveux ?"));
+        questionList.Add(new Question(0,"Utilises-tu le terme Chocolatine ?"));
+        questionList.Add(new Question(0,"Es-tu déjà tombé en public ?"));
 
         SaveData.SaveQuestions();
     }

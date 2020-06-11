@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Object
+[System.Serializable]
+public class Player
 {
     public int playerId;
     public string playerName;

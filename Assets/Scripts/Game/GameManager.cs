@@ -6,12 +6,12 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using System.Linq;
+using GoogleMobileAds.Api;
 
 public class GameManager : MonoBehaviour
 {
     public TMP_Text question;
     public TMP_Text answer;
-    public TMP_Text textButtonNext;
     public GameObject content;
     public GameObject resultsContent;
     public GameObject playerCard;
@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     public GameObject panelRules;
     public GameObject panelResults;
     public GameObject panelGame;
+
+    private AdsManager AdsManager;
     
     private List<Player> playerList;
     public bool rulesToggled;
@@ -26,6 +28,9 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
+        //Load and show Ad on game start
+        AdsManager = GameObject.FindGameObjectWithTag("AdsManager").GetComponent<AdsManager>();
+
         GameSettings.gameStatus = "question";
         playerList = GameSettings.playerList;
         rulesToggled = false;
@@ -37,7 +42,6 @@ public class GameManager : MonoBehaviour
             card.GetComponent<PlayerManager>().playerId = player.getPlayerId();
             card.GetComponent<PlayerManager>().playerName = player.getPlayerName();
             card.GetComponentInChildren<TMP_Text>().text = player.getPlayerName();
-            content.GetComponent<RectTransform>().offsetMax += new Vector2(card.GetComponent<RectTransform>().rect.width + 60, 0);
             card.transform.SetParent(content.transform, false);
         }
 
@@ -71,10 +75,12 @@ public class GameManager : MonoBehaviour
     //get new question 
     public void GetNewQuestion()
     {
+        if (GameSettings.gameQuestionCount % 5 == 0)
+            AdsManager.RequestInterstitial();
+
         //adapt UI
         panelGame.transform.Find("panelAnswer").gameObject.SetActive(false);
         panelGame.transform.Find("panelQuestion").gameObject.SetActive(true);
-        textButtonNext.text = "Verdict!";
 
         //set default choice for each player
         foreach(Transform card in content.transform) card.gameObject.GetComponent<PlayerManager>().SetDefaultChoice();
@@ -135,7 +141,6 @@ public class GameManager : MonoBehaviour
         //adapt UI
         panelGame.transform.Find("panelAnswer").gameObject.SetActive(true);
         panelGame.transform.Find("panelQuestion").gameObject.SetActive(false);
-        textButtonNext.text = "Question suivante";
 
         //decide if yes or no is majority
         foreach (Player player in GameSettings.playerList)
@@ -164,7 +169,6 @@ public class GameManager : MonoBehaviour
                 //construct sentences depending of minority number and position in list
                 foreach(Player player in minorityList)
                 {
-                    Debug.Log(minorityList[minorityList.Count()-2].playerId);
                     if (player.playerId == minorityList.Last().playerId && minorityList.Count() == 1) text += player.playerName + " est le seul perdant! Deux gorgées!";
                     else if(player.playerId == minorityList.Last().playerId) text += "et " + player.playerName + " boivent une gorgée!";
                     else if (player.playerId == minorityList[minorityList.Count()-2].playerId) text += player.playerName + " ";
@@ -188,7 +192,6 @@ public class GameManager : MonoBehaviour
     //stop game to go to menu
     public void GoToMenu()
     {
-        GameSettings.SetDefaultSettings();
         SceneManager.LoadScene("Menu");
     }
 
@@ -203,14 +206,19 @@ public class GameManager : MonoBehaviour
     //show result screen
     public void EndGame()
     {
-        //adapt UI
+        //Load Ad
+        AdsManager.RequestInterstitial();
 
+
+        //adapt UI
         panelResults.SetActive(true);
         panelGame.SetActive(false);
 
         //make player list ordered by points
         int rank = 1;
         List<Player> rankedList = GameSettings.playerList.OrderByDescending(o=>o.playerPoints).ToList();
+        int lastPlayerPoints = rankedList[rankedList.Count-1].playerPoints;
+
         foreach(Player player in rankedList)
         {
             GameObject card = Instantiate(playerCardResults) as GameObject;
@@ -218,6 +226,19 @@ public class GameManager : MonoBehaviour
             card.transform.Find("textRank").GetComponent<TMP_Text>().text = rank.ToString();
             card.transform.Find("textName").GetComponent<TMP_Text>().text = player.getPlayerName();
             card.transform.Find("textPoints").GetComponent<TMP_Text>().text = player.getPlayerPoints().ToString();
+
+            //random drink
+            if(GameSettings.randomDrink == true)
+            {
+                int rnd = Random.Range(0, 100);
+                if(rnd>50)
+                    card.transform.Find("imageBeer").gameObject.SetActive(false);
+            }
+            else
+            {
+                if(player.playerPoints != lastPlayerPoints)
+                    card.transform.Find("imageBeer").gameObject.SetActive(false);
+            }
             
             //set color of podium
             switch (rank)
@@ -237,9 +258,15 @@ public class GameManager : MonoBehaviour
                 default:
                     card.transform.Find("textRank").GetComponent<TMP_Text>().color = Color.white;
                     break;
+
+
             }
 
-            resultsContent.GetComponent<RectTransform>().offsetMin -= new Vector2(0, card.GetComponent<RectTransform>().rect.height + 30);
+            //set color of last player(s)
+            if(player.playerPoints == lastPlayerPoints)
+                card.transform.Find("textRank").GetComponent<TMP_Text>().color = new Color32(255, 0, 0, 255);
+                    
+
             card.transform.SetParent(resultsContent.transform, false);
             rank++;
         }

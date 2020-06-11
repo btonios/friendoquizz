@@ -17,6 +17,11 @@ public class MenuManager : MonoBehaviour
     public GameObject panelMainMenu;
     public GameObject panelQuestionBrowser;
     public GameObject panelInfos;
+    public GameObject sliderQuestion;
+    public GameObject AdsManager;
+    public GameObject textAddPlayers;
+    public GameObject sliderQuestionNumber;
+    public GameObject toggleRandomDrink;
 
     public TMP_Text textInfosVersion;
     public TMP_Text textQN;
@@ -28,8 +33,9 @@ public class MenuManager : MonoBehaviour
     public bool qcToggled;
     public bool qbToggled;
     public bool canChange;
-    bool fading = false;
 
+    public bool useRandomDrink;
+    
 
     
     void Start()
@@ -39,30 +45,52 @@ public class MenuManager : MonoBehaviour
         settingsToggled = true;
         qcToggled = true;
         qbToggled = true;
+
         textInfosVersion.text = "Version: " + GlobalVariables.APP_VERSION;
     
         GameSettings.gameStatus = "menu";
         List<Player> playerList = new List<Player>(); 
 
         GlobalVariables.SetQuestionList();
+
+
+        if(GlobalVariables.firstOpening == true)
+        {
+            GlobalVariables.firstOpening = false;
+            Popup.Initialise("Attention", "En continuant, vous assurez avoir plus de 18 ans.", GameObject.Find("MenuCanvas"), false);
+            Popup.Show();
+        }
+
+        AdsManager.GetComponent<AdsManager>().RequestBanner();
+        GameSettings.SetGameSettings(sliderQuestionNumber, toggleRandomDrink);
     }
 
     //makes game start
     public void OnPlay()
     {
-        SceneManager.LoadScene("Game");
+        if(GameSettings.playerNumber > 1)
+            SceneManager.LoadScene("Game");
+        else
+            ToggleTextAddPlayers(true);  
     }
     
     //add a player card on screen and focus on inputfield
     public void AddPlayer()
     {
-        //add card to scene and add 130 to bottom to make scrolling work correctly
-        GameObject card = Instantiate(playerCard) as GameObject; 
-
+        //add card to scene 
+        GameObject card = Instantiate(playerCard) as GameObject;         
         card.transform.SetParent(content.transform, false);
 
         //open keyboard and to type player name
         card.GetComponentInChildren<TMP_InputField>().Select();   
+    }
+
+    public void CreatePlayerCardWithObject(Player player)
+    {
+        GameObject card = Instantiate(playerCard) as GameObject; 
+        card.GetComponent<PlayerManager>().SetProperties(player);
+        card.transform.Find("inputField").GetComponent<TMP_InputField>().text = player.playerName;
+        card.transform.SetParent(content.transform, false);
     }
 
     //sets question list
@@ -98,33 +126,13 @@ public class MenuManager : MonoBehaviour
         infosToggled = !infosToggled;
     }
 
-
-    //Fades from red to white text color
-    IEnumerator FadeError(TMP_Text text)
-    {
-        float ElapsedTime = 0.0f;
-        float TotalTime = 0.25f;
-        while (ElapsedTime < TotalTime) 
-        {
-            ElapsedTime += Time.deltaTime;
-            text.color = Color.Lerp(Color.red, Color.white, (ElapsedTime / TotalTime));
-            fading = false;
-            yield return null;
-        }
-
-    }
-
     //changes question number by adding or removing by given value
     //if can't, starts a coroutine to fade timer text color
-    public void ChangeQuestionNumber(int value)
+    public void ChangeQuestionNumber()
     {
-       canChange = GameSettings.ChangeQuestionNumber(value);
-       if (canChange == false && fading == false)
-       {
-           StartCoroutine(FadeError(textQN.GetComponent<TMP_Text>()));
-           fading = true;
-       } 
-       textQN.text = GameSettings.gameQuestionNumber.ToString();
+        int number = (int)sliderQuestion.GetComponent<Slider>().value * 5;
+        GameSettings.gameQuestionNumber = number;
+        textQN.text = number.ToString();
     }
 
     public void ToggleSettings()
@@ -182,5 +190,20 @@ public class MenuManager : MonoBehaviour
     public void DebugList()
     {
         GlobalVariables.debuglist();
+    }
+
+    public void ToggleRandomDrink()
+    {
+        GameSettings.ChangeRandomDrink();
+    }
+
+    public void ToggleTextAddPlayers(bool toggle)
+    {
+        textAddPlayers.SetActive(toggle);
+    }
+
+    public void SaveGameSettings()
+    {
+        SaveData.SaveGameSettings();
     }
 }
