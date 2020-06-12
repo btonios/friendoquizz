@@ -42,10 +42,6 @@ public class NetworkManager : MonoBehaviour
         form.AddField("sort", sort);
         form.AddField("language", GlobalVariables.LANGUAGE);
 
-        Debug.Log(GlobalVariables.MAC_ADDRESS);
-        Debug.Log(sort);
-        Debug.Log(GlobalVariables.LANGUAGE);
-
         using (UnityWebRequest webRequest  = UnityWebRequest.Post(url, form))
         {
             yield return webRequest.SendWebRequest();

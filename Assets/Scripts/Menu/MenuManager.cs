@@ -51,13 +51,14 @@ public class MenuManager : MonoBehaviour
         GameSettings.gameStatus = "menu";
         List<Player> playerList = new List<Player>(); 
 
-        GlobalVariables.SetQuestionList();
+        GlobalVariables.SetQuestionLists();
 
 
         if(GlobalVariables.firstOpening == true)
         {
+            
             GlobalVariables.firstOpening = false;
-            Popup.Initialise("Attention", "En continuant, vous assurez avoir plus de 18 ans.", GameObject.Find("MenuCanvas"), false);
+            Popup.Initialise("<color=\"red\">ATTENTION", "L'abus d'alcool est dangereux pour la santé. Consommez avec modération.\n\n En poursuivant, vous confirmez avoir au moins 18 ans et être responsable des conséquences que pourrait engendrer l'utilisation de FESTIS.", GameObject.Find("MenuCanvas"), false);
             Popup.Show();
         }
 
@@ -187,10 +188,25 @@ public class MenuManager : MonoBehaviour
         qbToggled = !qbToggled;
     }
 
-    public void DebugList()
+    public void DebugList(string type)
     {
-        GlobalVariables.debuglist();
+        switch(type)
+        {
+            case "native":
+                GlobalVariables.debugNativeQuestionList();
+            break;
+
+            case "user":
+                GlobalVariables.debugQuestionList();
+            break;
+
+            case "both":
+                GlobalVariables.debugBothQuestionLists();
+            break;
+        }
+        
     }
+    
 
     public void ToggleRandomDrink()
     {

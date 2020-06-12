@@ -22,6 +22,7 @@ public static class SaveData
 
         formatter.Serialize(stream, data);
         stream.Close();
+        Debug.LogWarning("Questions saved");
     }
 
     //Load question list from questions.data file
@@ -41,7 +42,7 @@ public static class SaveData
         //if no question found in questions.data, alert
         else 
         {
-            Debug.LogError("ALERT: question.data FILE NOT FOUND");
+            Debug.LogWarning("<color=yellow><b>ALERT: question.data FILE NOT FOUND</b></color>");
         }
 
         return data;
@@ -78,7 +79,7 @@ public static class SaveData
         //if no nickname found in nickname.data, alert
         else 
         {
-            Debug.LogError("ALERT: nickname.data FILE NOT FOUND");
+            Debug.LogWarning("<color=yellow><b>ALERT: nickname.data FILE NOT FOUND</b></color>");
         }
 
         return data;
@@ -119,7 +120,7 @@ public static class SaveData
         //if no nickname found in nickname.data, alert
         else 
         {
-            Debug.LogError("ALERT: gamesettings.data FILE NOT FOUND");
+            Debug.LogWarning("<color=yellow><b>ALERT: gamesettings.data FILE NOT FOUND</b></color>");
         }
 
         return data;
@@ -138,5 +139,13 @@ public static class SaveData
         SaveData.SaveQuestions();
     }
 
-    
+    //DELETE EVERY .data FILES!
+    public static void DeleteSaves()
+    {
+        string[] files = System.IO.Directory.GetFiles(Application.persistentDataPath, "*.data", SearchOption.AllDirectories);
+        foreach( string filepath in files)
+        {
+            System.IO.File.Delete(filepath);
+        }
+    }
 }

@@ -1,0 +1,105 @@
+1\As-tu déjà été bourré ?\french\false
+2\Es-tu en couple ?\french\false
+3\Es-tu célibataire ?\french\false
+4\As-tu une teinture ?\french\false
+5\As-tu un tatouage ?\french\false
+6\As-tu déjà voyagé en dehors de ton pays ?\french\false
+7\As-tu déjà vomi à cause de l'alcool ?\french\false
+8\As-tu un Samsung ?\french\false
+9\As-tu un Iphone ?\french\false
+10\T'es-tu déjà rasé(e) la tête ?\french\false
+11\As-tu déjà contacté un marabout ?\french\false
+12\T'es-tu déjà endormi au cinéma ?\french\false
+13\As-tu déjà mangé dans un restaurant horrible ?\french\false
+14\As-tu les yeux marrons ?\french\false
+15\As-tu les cheveux bruns/chatains ?\french\false
+16\As-tu les cheveux blonds ?\french\false
+17\As-tu les cheveux roux ?\french\false
+18\As-tu une faiblesse pour le rhum ?\french\false
+19\Aimes-tu la Vodka ?\french\false
+20\Aimes-tu le vin blanc ?\french\false
+21\Aimes-tu le vin rouge ?\french\false
+22\Aimes-tu le champagne ?\french\false
+23\Es-tu végétarien(ne) ?\french\false
+24\T'es-tu déjà teint les cheveux ?\french\false
+25\Utilises-tu le terme Chocolatine ?\french\false
+26\Es-tu déjà tombé en public ?\french\false
+27\As -tu déjà menti à une personne présente ici ? \french\false
+28\As-tu déjà été amoureux.se?\french\false
+29\Penses-tu qu’il y a une vie après la mort?\french\false
+30\Est-ce que tu es blond.e?\french\false
+31\Est-ce que tu te considères comme « intelligent.e »?\french\false
+32\Est-ce que les liens de sang sont importants pour toi?\french\false
+33\Est-ce que tu as déjà eu un accident de voiture?\french\false
+34\Est-ce que tu rêves de faire le tour du monde?\french\false
+35\Es-tu déjà sorti sans culotte/caleçon ? \french\false
+36\As-tu déjà séché les cours ?\french\false
+37\Sais-tu dire sarbacane en Italien ? \french\false
+38\As-tu déjà dormi à même le sol ?\french\false
+39\Es-tu un garçon?\french\false
+40\As-tu déjà volé quelque chose ? \french\false
+41\Es-tu une fille?\french\false
+42\Possèdes-tu un téléphone portable?\french\false
+43\As-tu des enfants?\french\false
+44\As-tu déjà eu un crush sur un(e) professeur ?\french\false
+45\Est-ce que tu es gay ?\french\false
+46\As-tu déjà vomi ?\french\false
+47\Est-ce que tu aimes tes potes de tout ton coeur ?\french\false
+48\Pourrais-tu avoir une relation sexuelle homosexuelle ?\french\false
+49\Tu pourrais sucer un pote ? \french\false
+50\T'as déjà mangé le vomi de ton pote ?\french\false
+51\Sais-tu jouer de l’harmonica ?\french\false
+52\Es-tu capable de chanter « Supercalifragilisticexpialidocious », la chanson de Mary Poppins ? \french\false
+53\Est-ce que tu joues aux jeux vidéo tous les jours?\french\false
+54\Est-ce que tu as déjà pensé à te faire tatouer?\french\false
+55\Te considères-tu comme mature?\french\false
+56\Est-ce que tu es plus grand.e que la moyenne?\french\false
+57\As-tu déjà fini mal en soirée ?\french\false
+58\As-tu des lunettes ?\french\false
+59\Es-tu un homme ?\french\false
+60\Es-tu une femme ?\french\false
+61\Es-tu non-binaire ?\french\false
+62\Es-tu de gauche ?\french\false
+63\Es-tu de droite ?\french\false
+64\Es-tu de groupe sanguin A ?\french\false
+65\Es-tu de groupe sanguin B ?\french\false
+66\Es-tu de groupe sanguin O ?\french\false
+67\As-tu déjà fantasmé sur ton voisin de droite ?\french\false
+68\As-tu déjà vu La Reine des Neiges 2 au cinéma ?\french\false
+69\As-tu ou es-tu en train de faire des études supérieures ?\french\false
+70\As-tu le Bac ?\french\false
+71\As-tu été infecté par le Covid-19 ?\french\false
+72\Es-tu infecté par le Covid-19 ?\french\false
+73\Est-ce toi qui vient de péter ?\french\false
+74\As-tu déjà voyagé en Amérique du Sud ?\french\false
+75\As-tu déjà voyagé aux États-Unis ?\french\false
+76\As-tu déjà voyagé en Afrique ?\french\false
+77\As-tu déjà voyagé en Asie ?\french\false
+78\As-tu déjà été collé ?\french\false
+79\As-tu déjà lancé un feu d’artifice depuis ton internat ? \french\false
+80\As-tu déjà sauté de plus de 6m dans l’eau ? \french\false
+81\As-tu déjà mangé un kebab à 2€ ? \french\false
+82\Es-tu déjà rentré par effraction dans ton établissement scolaire ? \french\false
+83\As-tu déjà recopié la signature de tes parents ? \french\false
+84\As-tu déjà participé à un rassemblement de punk ? \french\false
+85\As-tu déjà crié Allah Akbar en public ?\french\false
+86\As-tu déjà fugué ?\french\false
+87\Peux-tu calculer de tête 45 x 47 en moins de 10 secondes ? \french\false
+88\Es-tu déjà allé à l’école ? \french\false
+89\As-tu déjà appelé les pompiers ? \french\false
+90\T’es tu déjà cassé quelque chose ?\french\false
+91\Des gens ont-ils déjà appelé les pompiers pour toi ? \french\false
+92\As-tu déjà manger des insectes ?\french\false
+93\As-tu déjà pratiqué des rituels sataniques ?\french\false
+94\As-tu tiktok ?\french\false
+95\Est-ce que tu as déjà fait du jet ski ?\french\false
+96\Est-ce que tu es unicorne avec des pouvoirs magiques ? Est-ce que ton style est épileptique ?\french\false
+97\Serais-tu prêt à braver la loi pour un ami ?\french\false
+98\Est-ce que tu es un garçon?\french\false
+99\Est-ce que tu es blond.e?\french\false
+100\Est-ce que tu aimes les pâtes?\french\false
+101\Est-ce que tu as déjà voyagé à l’étranger?\french\false
+102\Est-ce que tu as déjà conduit une voiture?\french\false
+103\Est-ce que tu aimes les fraises?\french\false
+104\Est-ce que tu te trouves beau.belle?\french\false
+105\Est-ce que tu aimes les fesses?\french\false

@@ -24,13 +24,11 @@ public class PlayerManager : MonoBehaviour
 
     public void RemovePlayer()
     {
-        Debug.Log(playerId);
         for(int i=GameSettings.playerList.Count - 1; i > -1; i--)
         {
             if(GameSettings.playerList[i].playerId==this.playerId)
             {
                 GameSettings.playerNumber--;
-                Debug.Log(GameSettings.playerList[i].playerId);
                 GameSettings.playerList.RemoveAt(i);
                 
             }

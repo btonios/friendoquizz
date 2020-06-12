@@ -112,7 +112,6 @@ public class QuestionBrowserManager : MonoBehaviour
             //sort by device
             case 2:
                 SearchQuestions("device");
-                Debug.Log("xd");
             break;
 
 

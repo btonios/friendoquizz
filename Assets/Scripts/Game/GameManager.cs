@@ -23,12 +23,17 @@ public class GameManager : MonoBehaviour
     private AdsManager AdsManager;
     
     private List<Player> playerList;
+    
+    private List<Question> questionList;
+    private List<Question> unusedQuestionsList;
+
     public bool rulesToggled;
      
     
     void Start()
     {
         //Load and show Ad on game start
+        questionList = GlobalVariables.GetQuestionLists();
         AdsManager = GameObject.FindGameObjectWithTag("AdsManager").GetComponent<AdsManager>();
 
         GameSettings.gameStatus = "question";
@@ -44,7 +49,6 @@ public class GameManager : MonoBehaviour
             card.GetComponentInChildren<TMP_Text>().text = player.getPlayerName();
             card.transform.SetParent(content.transform, false);
         }
-
 
         Next();
     }
@@ -84,45 +88,66 @@ public class GameManager : MonoBehaviour
 
         //set default choice for each player
         foreach(Transform card in content.transform) card.gameObject.GetComponent<PlayerManager>().SetDefaultChoice();
-       
-       
-        //get all unused questions
-        List<Question> unusedQuestions = new List<Question>();
-        foreach(Question questionInList in GlobalVariables.questionList.ToList())
+        
+        
+        unusedQuestionsList = new List<Question>();
+        
+        //to keep track of used questions across games 
+        //used bool is used and checked here
+        bool allUsed = true;
+        foreach(Question question in questionList.ToList())
         {
-            if(questionInList.used == false)
+            if(question.used == false)
             {
-                unusedQuestions.Add(questionInList);
+                unusedQuestionsList.Add(question);
+                allUsed = false;
             }
         }
-           
-        
-        //if every questions has been used, reset list
-        if(unusedQuestions.Count == 0)
+
+        //if every question have been used, reset every question used bool to false
+        if(allUsed == true)
         {
-            foreach(Question questionInList in GlobalVariables.questionList)
+            foreach(Question question in GlobalVariables.questionList)
             {
-                questionInList.used = false;
-                GlobalVariables.SetQuestion(questionInList);
+                if(GlobalVariables.questionList.Any(q=>q.id == question.id))
+                {
+                    question.used = false;
+                    GlobalVariables.SetQuestion(question);
+                }           
             }
-                
-            unusedQuestions = GlobalVariables.questionList;
+
+            GlobalVariables.SetNativeQuestionsUnused();
+
+            questionList = GlobalVariables.GetQuestionLists();
             
+            //get new unused questions in unused question list
+            foreach(Question question in questionList.ToList())
+                if(question.used == false)
+                    unusedQuestionsList.Add(question);
         }
 
         //pick random question in unused questions
-        Question newQuestion = unusedQuestions[Random.Range(0, unusedQuestions.Count)];
-
-        //set question to used
-        foreach(Question questionInList in GlobalVariables.questionList.ToList())
+        Question newQuestion = unusedQuestionsList[Random.Range(0, unusedQuestionsList.Count)];
+        
+        //set used bool to true
+        newQuestion.used = true;
+        bool questionIsNative = true;
+        
+        //for user questions
+        foreach(Question question in GlobalVariables.questionList)
         {
-            if(questionInList.id == newQuestion.id)
+            if(question.id == newQuestion.id)
             {
-                questionInList.used = true;
-                GlobalVariables.SetQuestion(questionInList);
+                GlobalVariables.SetQuestion(newQuestion);
+                questionIsNative = false;
             }
-        }    
+        }
 
+        //or native question
+        if(questionIsNative == true)
+            GlobalVariables.SetNativeQuestionUsed(newQuestion);
+
+       
         question.text =  newQuestion.label;
 
         //update game settings

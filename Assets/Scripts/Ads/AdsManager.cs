@@ -56,14 +56,13 @@ public class AdsManager : MonoBehaviour
         // Initialize an InterstitialAd.
         this.interstitial = new InterstitialAd(adUnitId);
 
-        AdRequest request = new AdRequest.Builder().Build();
-        this.interstitial.LoadAd(request);
+            AdRequest adRequest = new AdRequest.Builder().Build();       
+             this.interstitial.LoadAd(adRequest);
     }
 
 
     public void ShowInterstitialAd()
     {
-
         if (this.interstitial.IsLoaded())
         {
             this.interstitial.Show();
@@ -83,19 +82,28 @@ public class AdsManager : MonoBehaviour
     public void RequestBanner()
     {
         #if UNITY_ANDROID
-            string bannerId = "ca-app-pub-3940256099942544/6300978111";
+            string bannerAdId = "ca-app-pub-3940256099942544/6300978111";
         #elif UNITY_IPHONE
-            string bannerId = "";
+            string bannerAdId = "";
         #else
-            string bannerId = "unexpected_platform";
+            string bannerAdId = "unexpected_platform";
         #endif
         
-        this.banner = new BannerView(bannerId, AdSize.SmartBanner, AdPosition.Bottom);
+        // Clean up banner ad before creating a new one.
+        if (this.banner != null)
+        {
+            this.banner.Destroy();
+        }
+
+        this.banner = new BannerView(bannerAdId, AdSize.Banner, AdPosition.Bottom);
         
-        AdRequest request = new AdRequest.Builder().Build();
-        this.banner.LoadAd(request);
+        AdRequest adRequest = new AdRequest.Builder().Build();
+
+        this.banner.LoadAd(adRequest);
     }
 
+
+    
     // FOR EVENTS AND DELEGATES FOR ADS
     public void HandleOnAdLoaded(object sender, EventArgs args)
     {
@@ -124,9 +132,5 @@ public class AdsManager : MonoBehaviour
     {
         MonoBehaviour.print("HandleAdLeavingApplication event received");
     }
-
-
-
-
 }
 
