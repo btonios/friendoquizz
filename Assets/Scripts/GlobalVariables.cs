@@ -13,7 +13,6 @@ public class GlobalVariables
     public static bool firstOpening = true;
     
     public static List<Question> questionList = new List<Question>();
-    public static List<Question> nativeQuestionList = new List<Question>();
     public static List<string> userInfos = new List<string>();
 
     
@@ -28,9 +27,9 @@ public class GlobalVariables
         SetQuestionLists();
     }
 
-    public static List<Question> GetQuestionLists()
+    public static List<Question> GetQuestionList()
     {
-        List<Question> list = LoadNativeQuestions().Union<Question>(questionList).ToList<Question>();
+        List<Question> list = questionList;
         return list;
     }
 
@@ -50,9 +49,6 @@ public class GlobalVariables
     {
         questionList = new List<Question>();
         questionList = SaveData.LoadQuestions();
-
-        nativeQuestionList = new List<Question>();
-        nativeQuestionList = LoadNativeQuestions();
     }
 
 
@@ -139,99 +135,5 @@ public class GlobalVariables
         }
         Debug.Log(t);
         Debug.Log("Question number: " + questionList.Count);
-    }
-
-    public static void debugNativeQuestionList()
-    {
-        string t = "";
-        foreach(Question question in nativeQuestionList)
-        {
-            t += question.id + " | "+question.label+"\n";
-        }
-        Debug.Log(t);
-        Debug.Log("Question number: " + nativeQuestionList.Count);
-    }
-
-    public static void debugBothQuestionLists()
-    {
-        string t = "";
-        foreach(Question question in GetQuestionLists())
-        {
-            t += question.id + " | "+question.label+"\n";
-        }
-        Debug.Log(t);
-        Debug.Log("Question number: " + GetQuestionLists().Count);
-    }
-
-
-    //load native questions from questions.txt
-    //0: id
-    //1: label
-    //2: language
-    //3: isUsed
-    public static List<Question> LoadNativeQuestions()
-    {
-        string path = "Assets/Resources/questions.txt";
-     
-        string[] lines = System.IO.File.ReadAllLines(path);
-        
-        int id = 0;
-        string label = "";
-        string language = "english";
-        bool used = false;
-
-        List<Question> nativeList = new List<Question>();
-        
-        foreach(string line in lines)
-        {
-            string[] questionInfos = line.Split(char.Parse("\\"));  
-            id = int.Parse(questionInfos[0]);
-            label = questionInfos[1];
-            language = questionInfos[2];
-            used = bool.Parse(questionInfos[3]);
-
-            Question question = new Question(id, label, 0, "native", language, null, null, null, 0, false, used);
-            nativeList.Add(question);
-        }
-        nativeQuestionList = nativeList;
-        return nativeList;
-        Debug.Log("Native list loaded");
-
-    }
-
-    public static void SetNativeQuestionUsed(Question question)
-    {
-        string path = "Assets/Resources/questions.txt";
-        string[] lines = File.ReadAllLines(path);
-        int count = 0;
-        foreach(string line in lines)
-        {
-            string[] lineInfos = line.Split(char.Parse("\\"));
-            if(lineInfos[0] == question.id.ToString())
-            {
-                lineInfos[3] = lineInfos[3].Replace("false", "true");
-                lines[count] = lineInfos[0]+"\\"+lineInfos[1]+"\\"+lineInfos[2]+"\\"+lineInfos[3];
-            }
-            count++;
-        }
-        File.WriteAllLines(path, lines);
-
-        Debug.Log("Question set to used");
-    }
-
-    public static void SetNativeQuestionsUnused()
-    {
-        string path = "Assets/Resources/questions.txt";
-        string[] lines = File.ReadAllLines(path);
-        int count = 0;
-        foreach(string line in lines)
-        {
-            string[] lineInfos = line.Split(char.Parse("\\"));
-            lineInfos[3] = lineInfos[3].Replace("true", "false");
-            lines[count] = lineInfos[0]+"\\"+lineInfos[1]+"\\"+lineInfos[2]+"\\"+lineInfos[3];
-            count++;
-        }
-        File.WriteAllLines(path, lines);
-        Debug.Log("Native list set to unused");
     }
 }

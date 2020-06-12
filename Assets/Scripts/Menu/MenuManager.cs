@@ -94,12 +94,6 @@ public class MenuManager : MonoBehaviour
         card.transform.SetParent(content.transform, false);
     }
 
-    //sets question list
-    public void setListQuestionTest()
-    {
-        GlobalVariables.setList();
-        SaveData.SaveQuestions();
-    }
 
     public void SaveCurrentList()
     {
@@ -188,26 +182,6 @@ public class MenuManager : MonoBehaviour
         qbToggled = !qbToggled;
     }
 
-    public void DebugList(string type)
-    {
-        switch(type)
-        {
-            case "native":
-                GlobalVariables.debugNativeQuestionList();
-            break;
-
-            case "user":
-                GlobalVariables.debugQuestionList();
-            break;
-
-            case "both":
-                GlobalVariables.debugBothQuestionLists();
-            break;
-        }
-        
-    }
-    
-
     public void ToggleRandomDrink()
     {
         GameSettings.ChangeRandomDrink();
@@ -221,5 +195,10 @@ public class MenuManager : MonoBehaviour
     public void SaveGameSettings()
     {
         SaveData.SaveGameSettings();
+    }
+
+    public void DebugQuestion()
+    {
+        GlobalVariables.debugQuestionList();
     }
 }

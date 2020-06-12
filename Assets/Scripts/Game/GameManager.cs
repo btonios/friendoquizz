@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //Load and show Ad on game start
-        questionList = GlobalVariables.GetQuestionLists();
+        questionList = GlobalVariables.GetQuestionList();
         AdsManager = GameObject.FindGameObjectWithTag("AdsManager").GetComponent<AdsManager>();
 
         GameSettings.gameStatus = "question";
@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
     //get new question 
     public void GetNewQuestion()
     {
+        Debug.Log(GameSettings.gameQuestionCount);
         if (GameSettings.gameQuestionCount % 5 == 0)
             AdsManager.RequestInterstitial();
 
@@ -116,9 +117,7 @@ public class GameManager : MonoBehaviour
                 }           
             }
 
-            GlobalVariables.SetNativeQuestionsUnused();
-
-            questionList = GlobalVariables.GetQuestionLists();
+            questionList = GlobalVariables.GetQuestionList();
             
             //get new unused questions in unused question list
             foreach(Question question in questionList.ToList())
@@ -131,23 +130,12 @@ public class GameManager : MonoBehaviour
         
         //set used bool to true
         newQuestion.used = true;
-        bool questionIsNative = true;
         
-        //for user questions
         foreach(Question question in GlobalVariables.questionList)
-        {
             if(question.id == newQuestion.id)
-            {
                 GlobalVariables.SetQuestion(newQuestion);
-                questionIsNative = false;
-            }
-        }
+            
 
-        //or native question
-        if(questionIsNative == true)
-            GlobalVariables.SetNativeQuestionUsed(newQuestion);
-
-       
         question.text =  newQuestion.label;
 
         //update game settings
@@ -179,7 +167,7 @@ public class GameManager : MonoBehaviour
         {
             if (yesVotes == playerList.Count() || noVotes == playerList.Count())
             {
-                text = "Tout le monde a répondu la même chose, pénalité! Tout le monde perd!";
+                text = "Tout le monde a répondu la même chose, pénalité! Tout le monde boit deux gorgées!";
             }
             else
             {
