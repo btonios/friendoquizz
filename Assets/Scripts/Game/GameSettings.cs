@@ -42,7 +42,6 @@ public static class GameSettings
         gameSettings.Add("QuestionNumber",gameQuestionNumber);
         gameSettings.Add("PlayerList", playerList);
         gameSettings.Add("RandomDrink", randomDrink);
-        gameSettings.Add("Language", GlobalVariables.LANGUAGE);
         gameSettings.Add("LastPlayerId", lastPlayerId);
         gameSettings.Add("PlayerNumber", playerNumber);
         return gameSettings;
@@ -67,8 +66,6 @@ public static class GameSettings
             lastPlayerId = gameSettings["LastPlayerId"];
             randomDrink = gameSettings["RandomDrink"];
             playerList = gameSettings["PlayerList"];
-
-            GlobalVariables.LANGUAGE = gameSettings["Language"];
 
             //create player object
             foreach(Player player in playerList)

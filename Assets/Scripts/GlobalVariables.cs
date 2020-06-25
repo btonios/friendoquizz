@@ -9,8 +9,10 @@ public class GlobalVariables
     public static string MAC_ADDRESS;
     public static string NICKNAME;
     public static string APP_VERSION = "1.0";
-    public static string LANGUAGE = "french";
+    public static string LANGUAGE;
     public static bool firstOpening = true;
+    public static bool firstOpeningLanguage = true;
+    public static bool canUpload = false;
     
     public static List<Question> questionList = new List<Question>();
     public static List<string> userInfos = new List<string>();
@@ -20,6 +22,11 @@ public class GlobalVariables
     public static void SetMACAddress()
     {
         MAC_ADDRESS = SystemInfo.deviceUniqueIdentifier;
+    }
+
+    public static void SetLanguage(string language)
+    {
+        LANGUAGE = language;
     }
 
     public void SetDefaultSettings()

@@ -28,6 +28,11 @@ public class GameManager : MonoBehaviour
     private List<Question> unusedQuestionsList;
 
     public bool rulesToggled;
+
+    private string textOnlyLoser;
+    private string textEquals;
+    private string textAnd;
+    private string textDrinkOnce;
      
     
     void Start()
@@ -50,6 +55,10 @@ public class GameManager : MonoBehaviour
             card.transform.SetParent(content.transform, false);
         }
 
+        textEquals = GameLanguage.GetTraduction("GAME_ANSWER_EQUAL");
+        textOnlyLoser = GameLanguage.GetTraduction("GAME_ANSWER_ONLYLOSER");
+        textAnd = GameLanguage.GetTraduction("GAME_ANSWER_AND");
+        textDrinkOnce = GameLanguage.GetTraduction("GAME_ANSWER_DRINKONCE");
         Next();
     }
 
@@ -167,7 +176,7 @@ public class GameManager : MonoBehaviour
         {
             if (yesVotes == playerList.Count() || noVotes == playerList.Count())
             {
-                text = "Tout le monde a répondu la même chose, pénalité! Tout le monde boit deux gorgées!";
+                text = textEquals;
             }
             else
             {
@@ -182,8 +191,8 @@ public class GameManager : MonoBehaviour
                 //construct sentences depending of minority number and position in list
                 foreach(Player player in minorityList)
                 {
-                    if (player.playerId == minorityList.Last().playerId && minorityList.Count() == 1) text += player.playerName + " est le seul perdant! Deux gorgées!";
-                    else if(player.playerId == minorityList.Last().playerId) text += "et " + player.playerName + " boivent une gorgée!";
+                    if (player.playerId == minorityList.Last().playerId && minorityList.Count() == 1) text += player.playerName + textOnlyLoser;
+                    else if(player.playerId == minorityList.Last().playerId) text += textAnd + player.playerName + textDrinkOnce;
                     else if (player.playerId == minorityList[minorityList.Count()-2].playerId) text += player.playerName + " ";
                     else text += player.playerName + ", ";
                 }
@@ -191,7 +200,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            text = "Égalité, tout le monde a le droit à deux gorgées!";
+            text = textEquals;
         } 
 
         answer.text = text;

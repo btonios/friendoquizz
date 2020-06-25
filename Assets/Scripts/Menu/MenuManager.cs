@@ -17,12 +17,15 @@ public class MenuManager : MonoBehaviour
     public GameObject panelMainMenu;
     public GameObject panelQuestionBrowser;
     public GameObject panelInfos;
+    public GameObject panelLanguages;
+    public GameObject panelWarning;
     public GameObject sliderQuestion;
     public GameObject AdsManager;
     public GameObject textAddPlayers;
     public GameObject sliderQuestionNumber;
     public GameObject toggleRandomDrink;
-
+    
+    public TMP_Dropdown ddSort;
     public TMP_Text textInfosVersion;
     public TMP_Text textQN;
 
@@ -30,6 +33,8 @@ public class MenuManager : MonoBehaviour
     public bool rulesToggled;
     public bool infosToggled;
     public bool settingsToggled;
+    public bool languagesToggled;
+    public bool warningToggled;
     public bool qcToggled;
     public bool qbToggled;
     public bool canChange;
@@ -43,6 +48,8 @@ public class MenuManager : MonoBehaviour
         rulesToggled = true;
         infosToggled = true;
         settingsToggled = true;
+        languagesToggled = true;
+        warningToggled = true;
         qcToggled = true;
         qbToggled = true;
 
@@ -53,17 +60,27 @@ public class MenuManager : MonoBehaviour
 
         GlobalVariables.SetQuestionLists();
 
-
-        if(GlobalVariables.firstOpening == true)
+        if(GlobalVariables.firstOpeningLanguage == true)
         {
-            
-            GlobalVariables.firstOpening = false;
-            Popup.Initialise("<color=\"red\">ATTENTION", "L'abus d'alcool est dangereux pour la santé. Consommez avec modération.\n\n En poursuivant, vous confirmez avoir au moins 18 ans et être responsable des conséquences que pourrait engendrer l'utilisation de FESTIS.", GameObject.Find("MenuCanvas"), false);
-            Popup.Show();
+            GlobalVariables.firstOpeningLanguage = false;
+            panelLanguages.SetActive(true);
+        }
+        else
+        {
+            if(GlobalVariables.firstOpening == true)
+            {
+                GlobalVariables.firstOpening = false;
+                panelWarning.SetActive(true);
+            }
         }
 
+        
         AdsManager.GetComponent<AdsManager>().RequestBanner();
         GameSettings.SetGameSettings(sliderQuestionNumber, toggleRandomDrink);
+
+        ddSort.options[0].text = GameLanguage.GetTraduction("QB_SORT_RECENT");
+        ddSort.options[1].text = GameLanguage.GetTraduction("QB_SORT_BEST");
+        ddSort.options[2].text = GameLanguage.GetTraduction("QB_SORT_DEVICE");
     }
 
     //makes game start
@@ -130,6 +147,23 @@ public class MenuManager : MonoBehaviour
         textQN.text = number.ToString();
     }
 
+    //Toggle Language Panel
+    public void ToggleLanguages()
+    {
+        if(languagesToggled == true) panelLanguages.SetActive(true);
+        else panelLanguages.SetActive(false);
+        languagesToggled = !languagesToggled;
+    }
+
+    //Toggle Warning Panel
+    public void ToggleWarning()
+    {
+        if(warningToggled == true) panelWarning.SetActive(true);
+        else panelWarning.SetActive(false);
+        warningToggled = !warningToggled;
+    }
+
+    //Toggle Settings Panel
     public void ToggleSettings()
     {
         if(settingsToggled == true) panelSettings.SetActive(true);
@@ -137,6 +171,7 @@ public class MenuManager : MonoBehaviour
         settingsToggled = !settingsToggled;
     }
 
+    //Toggle Question Creation Panel
     public void ToggleQuestionCreator(Transform content)
     {
         if(qcToggled == true)
@@ -158,6 +193,7 @@ public class MenuManager : MonoBehaviour
         qcToggled = !qcToggled;
     }
 
+    //Toggle Question Browser Panel
     public void ToggleQuestionBrowser(Transform content)
     {
         if(qbToggled == true)
@@ -187,6 +223,7 @@ public class MenuManager : MonoBehaviour
         GameSettings.ChangeRandomDrink();
     }
 
+    //Toggle text to add players berlow play button if < 2 players in settings
     public void ToggleTextAddPlayers(bool toggle)
     {
         textAddPlayers.SetActive(toggle);
@@ -201,4 +238,6 @@ public class MenuManager : MonoBehaviour
     {
         GlobalVariables.debugQuestionList();
     }
+
+    
 }
